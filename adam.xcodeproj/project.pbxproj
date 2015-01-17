@@ -58,6 +58,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96347B301A6A528E002800AD /* Mockups UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Mockups UI";
+			sourceTree = "<group>";
+		};
 		967949CE1A627BF900FB747C = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +90,7 @@
 				967949E11A627BF900FB747C /* ViewController.swift */,
 				967949E31A627BFA00FB747C /* Main.storyboard */,
 				967949E61A627BFA00FB747C /* Images.xcassets */,
+				96347B301A6A528E002800AD /* Mockups UI */,
 				967949E81A627BFA00FB747C /* LaunchScreen.xib */,
 				967949DE1A627BF900FB747C /* adam.xcdatamodeld */,
 				967949DA1A627BF900FB747C /* Supporting Files */,
@@ -411,6 +419,7 @@
 				967949FB1A627BFA00FB747C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		967949FC1A627BFA00FB747C /* Build configuration list for PBXNativeTarget "adamTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +428,7 @@
 				967949FE1A627BFA00FB747C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
