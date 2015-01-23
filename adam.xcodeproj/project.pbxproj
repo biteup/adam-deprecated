@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D21A721DC500CD9B56 /* MenuCell.swift */; };
+		21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D41A72217800CD9B56 /* Menu.swift */; };
+		21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */; };
+		21F1E0D91A7253AF00CD9B56 /* nav_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D81A7253AF00CD9B56 /* nav_bg.png */; };
+		21F1E0DB1A72564900CD9B56 /* nav_bg@2.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */; };
 		967949DD1A627BF900FB747C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949DC1A627BF900FB747C /* AppDelegate.swift */; };
 		967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 967949DE1A627BF900FB747C /* adam.xcdatamodeld */; };
 		967949E21A627BFA00FB747C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949E11A627BF900FB747C /* ViewController.swift */; };
@@ -27,6 +32,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21F1E0D21A721DC500CD9B56 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		21F1E0D41A72217800CD9B56 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "幕の内弁当.jpg"; sourceTree = "<group>"; };
+		21F1E0D81A7253AF00CD9B56 /* nav_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bg.png; sourceTree = "<group>"; };
+		21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_bg@2.png"; sourceTree = "<group>"; };
 		967949D71A627BF900FB747C /* adam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967949DB1A627BF900FB747C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967949DC1A627BF900FB747C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,12 +96,17 @@
 		967949D91A627BF900FB747C /* adam */ = {
 			isa = PBXGroup;
 			children = (
+				21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */,
+				21F1E0D21A721DC500CD9B56 /* MenuCell.swift */,
+				21F1E0D41A72217800CD9B56 /* Menu.swift */,
 				967949DC1A627BF900FB747C /* AppDelegate.swift */,
 				967949E11A627BF900FB747C /* ViewController.swift */,
 				967949E31A627BFA00FB747C /* Main.storyboard */,
 				967949E61A627BFA00FB747C /* Images.xcassets */,
 				96347B301A6A528E002800AD /* Mockups UI */,
 				967949E81A627BFA00FB747C /* LaunchScreen.xib */,
+				21F1E0D81A7253AF00CD9B56 /* nav_bg.png */,
+				21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */,
 				967949DE1A627BF900FB747C /* adam.xcdatamodeld */,
 				967949DA1A627BF900FB747C /* Supporting Files */,
 			);
@@ -203,8 +218,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F1E0D91A7253AF00CD9B56 /* nav_bg.png in Resources */,
+				21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */,
 				967949E51A627BFA00FB747C /* Main.storyboard in Resources */,
 				967949EA1A627BFA00FB747C /* LaunchScreen.xib in Resources */,
+				21F1E0DB1A72564900CD9B56 /* nav_bg@2.png in Resources */,
 				967949E71A627BFA00FB747C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,7 +243,9 @@
 			files = (
 				967949E21A627BFA00FB747C /* ViewController.swift in Sources */,
 				967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */,
+				21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */,
 				967949DD1A627BF900FB747C /* AppDelegate.swift in Sources */,
+				21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
