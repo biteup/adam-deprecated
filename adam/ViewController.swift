@@ -29,10 +29,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func setupMenu()
     {
-        var menu1 = Menu(menuName: "弁当", storeName: "駅弁", imgName: "幕の内弁当.jpg")
-        var menu2 = Menu(menuName: "弁当2", storeName: "駅弁2", imgName: "幕の内弁当.jpg")
+        var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg")
+        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg")
+        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg")
+        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg")
+        
         menuArray.append(menu1)
         menuArray.append(menu2)
+        menuArray.append(menu3)
+        menuArray.append(menu4)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
