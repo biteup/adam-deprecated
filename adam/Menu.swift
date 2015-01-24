@@ -9,13 +9,17 @@
 import Foundation
 
 class Menu {
-    var menuName   = "name"
-    var storeName  = "res_name"
-    var imgName    = "blank"
+    var menuName: String   = "name"
+    var storeName: String  = "res_name"
+    var imgName: String    = "blank"
+    var distanceVal:Float     = 1.0
+    var pointVal:Int          = 1
     
-    init(menuName: String, storeName: String, imgName: String) {
-        self.menuName  = menuName
-        self.storeName = storeName
-        self.imgName   = imgName
+    init(menuName: String, storeName: String, imgName: String, distanceVal: Float, pointVal: Int) {
+        self.menuName       = menuName
+        self.storeName      = storeName
+        self.imgName        = imgName
+        self.distanceVal    = distanceVal
+        self.pointVal       = pointVal
     }
 }

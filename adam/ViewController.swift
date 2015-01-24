@@ -18,21 +18,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.setNeedsStatusBarAppearanceUpdate()
         self.setupMenu()
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func setupMenu()
     {
-        var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg")
-        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg")
-        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg")
-        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg")
+        var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu5 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu6 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
         
         menuArray.append(menu1)
         menuArray.append(menu2)
@@ -57,7 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let menu = menuArray[indexPath.row]
         
-        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgName: menu.imgName)
+        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgName: menu.imgName, distanceVal: menu.distanceVal, pointVal: menu.pointVal)
         
         return cell
     }
