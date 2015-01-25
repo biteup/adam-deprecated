@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     var menuArray:[Menu] = [Menu]()
+    var const:Const = Const()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuArray.append(menu2)
         menuArray.append(menu3)
         menuArray.append(menu4)
+        menuArray.append(menu5)
+        menuArray.append(menu6)
+        const.setConst("currencySign", key: "JPY", value: "¥")
+        const.setConst("currencySign", key: "USD", value: "$")
+        var myDict: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("CurrencySignList", ofType: "plist") {
+            myDict = NSDictionary(contentsOfFile: path)
+        }
+        if let dict = myDict {
+            // Use your dict here
+            let jpySign = dict.valueForKey("JPY") as? String
+            
+            println(jpySign)
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
