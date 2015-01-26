@@ -94,9 +94,23 @@
                             </tableView>
                         </subviews>
                     </view>
-                    <navigationItem key="navigationItem" title="MenuList" id="9SC-4h-dh4"/>
+                    <navigationItem key="navigationItem" title="MenuList" id="9SC-4h-dh4">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="LxQ-EX-miU">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qTt-tX-Do1">
+                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KVq-at-krJ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="menuTableView" destination="WSW-kS-Fgu" id="8O6-7p-MGm"/>
+                        <outlet property="myButton" destination="qTt-tX-Do1" id="SN7-Jv-De0"/>
                         <outlet property="searchDisplayController" destination="IFj-vi-oJo" id="snh-LK-Hx5"/>
                     </connections>
                 </viewController>

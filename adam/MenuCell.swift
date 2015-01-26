@@ -69,12 +69,9 @@ class MenuCell: UITableViewCell {
         println(priceText)
         if let currency = const.getConst("setting", key: "CURRENCY") {
             if let currencySign = const.getConst("currencySign", key: currency) {
-                println(currency)
-                println(currencySign)
                 priceText = " " + currencySign + " " + priceText + "  "
             }
         }
-        println(priceText)
         resizePriceLabelFrame(priceText)
     }
     

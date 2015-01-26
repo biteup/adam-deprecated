@@ -7,19 +7,26 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
     @IBOutlet weak var menuTableView: UITableView!
+    @IBOutlet weak var myButton: UIButton!
 
+    @IBAction func onClick(sender: AnyObject) {
+        self.getGeo()
+    }
     
     var menuArray:[Menu] = [Menu]()
     var const:Const = Const.sharedInstance
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.setNeedsStatusBarAppearanceUpdate()
+        self.getGeo()
         self.setupMenu()
     }
 
@@ -28,8 +35,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
-    func setupMenu()
-    {
+    
+    func getGeo() {
+        println("Display geo")
+        locationManager.delegate = self
+        println("Display geo")
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        println("Display geo")
+        locationManager.requestWhenInUseAuthorization()
+        println("Display geo")
+        locationManager.startUpdatingLocation()
+        println("Display geo")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+            CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
+                
+                if (error != nil) {
+                    println("Reverse geocoder failed with error" + error.localizedDescription)
+                    return
+                }
+                
+                if placemarks.count > 0 {
+                    let pm = placemarks[0] as CLPlacemark
+                    self.displayLocationInfo(pm)
+                } else {
+                    println("Problem with the data received from geocoder")
+                }
+            })
+    }
+    
+    func displayLocationInfo(placemark: CLPlacemark) {
+        if placemark.location != nil {
+            //stop updating location to save battery life
+            locationManager.stopUpdatingLocation()
+            if placemark.locality != nil {
+                println(placemark.locality)
+            }
+            if placemark.postalCode != nil {
+                println(placemark.postalCode)
+            }
+            if placemark.administrativeArea  != nil {
+                println(placemark.administrativeArea )
+            }
+            if placemark.country != nil {
+                println(placemark.country)
+            }
+        }
+    }
+
+
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error while updating location" + error.localizedDescription)
+    }
+    
+    func setupMenu() {
+        
         var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
         var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
         var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
@@ -43,16 +104,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuArray.append(menu4)
         menuArray.append(menu5)
         menuArray.append(menu6)
-        var myDict: NSDictionary?
-        if let path = NSBundle.mainBundle().pathForResource("CurrencySignList", ofType: "plist") {
-            myDict = NSDictionary(contentsOfFile: path)
-        }
-        if let dict = myDict {
-            // Use your dict here
-            let jpySign = dict.valueForKey("JPY") as? String
-            
-            println(jpySign)
-        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
