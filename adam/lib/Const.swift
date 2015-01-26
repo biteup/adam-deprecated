@@ -27,25 +27,24 @@ class Const {
         return nil
     }
     
-    func setConst(type:String, key: String, value: String) -> Bool? {
+    func setConst(type:String, key: String, value: String) {
         var success:Bool
         if constant.isEmpty || constant[type] == nil{
             var newConst = [key : value]
-            if let unwrappedPreviousValue = constant.updateValue(newConst, forKey: key) {
-                println("Replaced the previous value: \(unwrappedPreviousValue)")
+            if let unwrappedPreviousValue = constant.updateValue(newConst, forKey: type) {
+                //println("Replaced the previous value1: \(unwrappedPreviousValue)")
             } else{
-                println("Added a new value")
+                //println("Added a new value1")
             }
         }
         else{
             if let unwrappedPreviousValue = constant[type]?.updateValue(value, forKey: key) {
-                println("Replaced the previous value: \(unwrappedPreviousValue)")
+                //println("Replaced the previous value2: \(unwrappedPreviousValue)")
             } else {
-                println("Added a new value")
+                //println("Added a new value2")
             }
 
         }
-        return true
     }
     
     class var sharedInstance : Const {

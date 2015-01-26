@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     var menuArray:[Menu] = [Menu]()
-    var const:Const = Const()
+    var const:Const = Const.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +30,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func setupMenu()
     {
-        var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10)
-        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
-        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10)
-        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
-        var menu5 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
-        var menu6 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10)
+        var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
+        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
+        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
+        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
+        var menu5 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
+        var menu6 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
         
         menuArray.append(menu1)
         menuArray.append(menu2)
@@ -43,8 +43,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuArray.append(menu4)
         menuArray.append(menu5)
         menuArray.append(menu6)
-        const.setConst("currencySign", key: "JPY", value: "¥")
-        const.setConst("currencySign", key: "USD", value: "$")
         var myDict: NSDictionary?
         if let path = NSBundle.mainBundle().pathForResource("CurrencySignList", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
@@ -74,7 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let menu = menuArray[indexPath.row]
         
-        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgName: menu.imgName, distanceVal: menu.distanceVal, pointVal: menu.pointVal)
+        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgName: menu.imgName, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price)
         
         return cell
     }

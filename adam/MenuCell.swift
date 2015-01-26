@@ -37,26 +37,47 @@ class MenuCell: UITableViewCell {
         )
     }
     
-    func resizePriceLabelFrame(price: Int){
+    func resizePriceLabelFrame(priceText: String){
         //Calculate the expected size based on the font and linebreak mode of your label
-        // FLT_MAX here simply means no constraint in height
         var maximumLabelSize: CGSize = CGSizeMake(320, 50)
-        var abc: String = "¥ "
-        abc = abc + String(price)
-        let priceText: NSString = abc as NSString
-        let expectedLabelSize: CGSize = priceText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)])
-        println(expectedLabelSize)
+        let myPriceText: NSString = priceText as NSString
+        let expectedLabelSize: CGSize = myPriceText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)])
         
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenSize.width
         
-        //CGSize expectedLabelSize =
-    
-        //CGSize expectedLabelSize = [yourString sizeWithFont:yourLabel.font constrainedToSize:maximumLabelSize lineBreakMode:yourLabel.lineBreakMode];
-    
-        //adjust the label the the new height.
-        //CGRect newFrame = yourLabel.frame
-        //newFrame.size.height = expectedLabelSize.height
-        //yourLabel.frame = newFrame
+        var newFrame: CGRect = priceLabel.frame
+        newFrame.size.width = round(expectedLabelSize.width)
+        newFrame.origin.x   = screenWidth - newFrame.size.width
+        
+        priceLabel.text = priceText
+        priceLabel.frame = newFrame
+        priceLabel.textAlignment = NSTextAlignment.Center
+
     }
+    
+    func setPriceLabel(price: Float){
+        var const:Const = Const.sharedInstance
+        var priceText = ""
+        if price % 1 == 0 {
+            priceText = String(format: "%.0f", price)
+        }
+        else {
+            priceText = String(format: "%.2f", price)
+        }
+        
+        println(priceText)
+        if let currency = const.getConst("setting", key: "CURRENCY") {
+            if let currencySign = const.getConst("currencySign", key: currency) {
+                println(currency)
+                println(currencySign)
+                priceText = " " + currencySign + " " + priceText + "  "
+            }
+        }
+        println(priceText)
+        resizePriceLabelFrame(priceText)
+    }
+    
     func setMenuNameLabel(name: String) {
         self.menuNameLabel.text = name
     }
@@ -97,11 +118,11 @@ class MenuCell: UITableViewCell {
         //self.menuImageView.layer.borderWidth = 0.5
     }
     
-    func setMenuCell(inMenuName: String, storeName: String, imgName:String, distanceVal:Float, pointVal: Int) {
+    func setMenuCell(inMenuName: String, storeName: String, imgName:String, distanceVal:Float, pointVal: Int, price:Float) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
         self.setImageByName(imgName)
-        self.resizePriceLabelFrame(1000)
+        self.setPriceLabel(price)
         self.setDistanceLabel(distanceVal)
         self.setPointLabel(pointVal)
     }
