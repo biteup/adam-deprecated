@@ -16,6 +16,7 @@
 		21F1E0DB1A72564900CD9B56 /* nav_bg@2.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */; };
 		9614839F1A74D11E001CFA97 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614839E1A74D11E001CFA97 /* Const.swift */; };
 		961483A11A74EB9D001CFA97 /* CurrencySignList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961483A01A74EB9D001CFA97 /* CurrencySignList.plist */; };
+		961E4E9B1A792791005F7912 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E4E9A1A792791005F7912 /* Alamofire.framework */; };
 		967949DD1A627BF900FB747C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949DC1A627BF900FB747C /* AppDelegate.swift */; };
 		967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 967949DE1A627BF900FB747C /* adam.xcdatamodeld */; };
 		967949E21A627BFA00FB747C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949E11A627BF900FB747C /* ViewController.swift */; };
@@ -46,6 +47,7 @@
 		21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_bg@2.png"; sourceTree = "<group>"; };
 		9614839E1A74D11E001CFA97 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = lib/Const.swift; sourceTree = "<group>"; };
 		961483A01A74EB9D001CFA97 /* CurrencySignList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CurrencySignList.plist; path = PreDefinedList/CurrencySignList.plist; sourceTree = "<group>"; };
+		961E4E9A1A792791005F7912 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		967949D71A627BF900FB747C /* adam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967949DB1A627BF900FB747C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967949DC1A627BF900FB747C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				216646041A763C55004A3378 /* CoreLocation.framework in Frameworks */,
+				961E4E9B1A792791005F7912 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +92,7 @@
 		967949CE1A627BF900FB747C = {
 			isa = PBXGroup;
 			children = (
+				961E4E9A1A792791005F7912 /* Alamofire.framework */,
 				216646031A763C55004A3378 /* CoreLocation.framework */,
 				967949D91A627BF900FB747C /* adam */,
 				967949F21A627BFA00FB747C /* adamTests */,
@@ -164,6 +168,7 @@
 				967949D31A627BF900FB747C /* Sources */,
 				967949D41A627BF900FB747C /* Frameworks */,
 				967949D51A627BF900FB747C /* Resources */,
+				961E4E9C1A79281F005F7912 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -254,6 +259,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		961E4E9C1A79281F005F7912 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		967949D31A627BF900FB747C /* Sources */ = {
@@ -391,6 +413,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = adam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,6 +428,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = adam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
