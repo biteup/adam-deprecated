@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
@@ -52,6 +53,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 println(request)
                 println(response)
                 println(error)
+        }
+        var url = "http://snakebite.herokuapp.com/restaurants"
+        Alamofire.request(.GET, url, parameters: ["": ""])
+            .responseJSON { (req, res, json, error) in
+                if(error != nil) {
+                    NSLog("Error: \(error)")
+                    println(req)
+                    println(res)
+                }
+                else {
+                    println("Success: \(url)")
+                    println(res)
+                    var json = JSON(json!)
+                    println(json)
+                }
         }
     }
     

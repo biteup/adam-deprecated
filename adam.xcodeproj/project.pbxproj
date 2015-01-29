@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		216646021A762FC8004A3378 /* Setting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 216646011A762FC8004A3378 /* Setting.plist */; };
 		216646041A763C55004A3378 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216646031A763C55004A3378 /* CoreLocation.framework */; };
+		21ABF4B61A79E61B0060D65D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21ABF4B51A79E61B0060D65D /* SwiftyJSON.framework */; };
 		21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D21A721DC500CD9B56 /* MenuCell.swift */; };
 		21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D41A72217800CD9B56 /* Menu.swift */; };
 		21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		216646011A762FC8004A3378 /* Setting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Setting.plist; path = PreDefinedList/Setting.plist; sourceTree = "<group>"; };
 		216646031A763C55004A3378 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		21ABF4B51A79E61B0060D65D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		21F1E0D21A721DC500CD9B56 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		21F1E0D41A72217800CD9B56 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "幕の内弁当.jpg"; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21ABF4B61A79E61B0060D65D /* SwiftyJSON.framework in Frameworks */,
 				216646041A763C55004A3378 /* CoreLocation.framework in Frameworks */,
 				961E4E9B1A792791005F7912 /* Alamofire.framework in Frameworks */,
 			);
@@ -92,6 +95,7 @@
 		967949CE1A627BF900FB747C = {
 			isa = PBXGroup;
 			children = (
+				21ABF4B51A79E61B0060D65D /* SwiftyJSON.framework */,
 				961E4E9A1A792791005F7912 /* Alamofire.framework */,
 				216646031A763C55004A3378 /* CoreLocation.framework */,
 				967949D91A627BF900FB747C /* adam */,
@@ -268,6 +272,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);
