@@ -110,15 +110,34 @@ class MenuCell: UITableViewCell {
     }
     
     func setImageByName(imgName: String) {
-        self.menuImageView.image = UIImage(named: imgName)
+        let url = NSURL(string: "http://greenasia-tokyo.com/wp/wp-content/uploads/2014/01/ga15.jpg")
+        let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+        self.menuImageView.image = UIImage(data: data!)
+        //imageURL.image = UIImage(data: data!)
+        
+        //self.menuImageView.image = UIImage(named: imgName)
+        
         //self.menuImageView.layer.borderColor = UIColorFromRGB(0x34495e).CGColor
         //self.menuImageView.layer.borderWidth = 0.5
     }
     
-    func setMenuCell(inMenuName: String, storeName: String, imgName:String, distanceVal:Float, pointVal: Int, price:Float) {
+    func setImageByURL(imgURL: NSURL) {
+        let url = NSURL(string: "http://greenasia-tokyo.com/wp/wp-content/uploads/2014/01/ga15.jpg")
+        let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+        self.menuImageView.image = UIImage(data: data!)
+        //imageURL.image = UIImage(data: data!)
+        
+        //self.menuImageView.image = UIImage(named: imgName)
+        
+        //self.menuImageView.layer.borderColor = UIColorFromRGB(0x34495e).CGColor
+        //self.menuImageView.layer.borderWidth = 0.5
+    }
+
+    
+    func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Float, pointVal: Int, price:Float) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
-        self.setImageByName(imgName)
+        self.setImageByURL(imgURL)
         self.setPriceLabel(price)
         self.setDistanceLabel(distanceVal)
         self.setPointLabel(pointVal)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		216646021A762FC8004A3378 /* Setting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 216646011A762FC8004A3378 /* Setting.plist */; };
 		216646041A763C55004A3378 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216646031A763C55004A3378 /* CoreLocation.framework */; };
+		21CE81971A809B4F00E04F96 /* Restuarants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE81961A809B4F00E04F96 /* Restuarants.swift */; };
 		21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D21A721DC500CD9B56 /* MenuCell.swift */; };
 		21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D41A72217800CD9B56 /* Menu.swift */; };
 		21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		216646011A762FC8004A3378 /* Setting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Setting.plist; path = PreDefinedList/Setting.plist; sourceTree = "<group>"; };
 		216646031A763C55004A3378 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		21CE81961A809B4F00E04F96 /* Restuarants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restuarants.swift; sourceTree = "<group>"; };
 		21F1E0D21A721DC500CD9B56 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		21F1E0D41A72217800CD9B56 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "幕の内弁当.jpg"; sourceTree = "<group>"; };
@@ -85,6 +87,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21CE81941A809A3300E04F96 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				9614839E1A74D11E001CFA97 /* Const.swift */,
+			);
+			name = Lib;
+			sourceTree = "<group>";
+		};
+		21CE81951A809A3F00E04F96 /* ServerAPI */ = {
+			isa = PBXGroup;
+			children = (
+				21CE81961A809B4F00E04F96 /* Restuarants.swift */,
+			);
+			name = ServerAPI;
+			sourceTree = "<group>";
+		};
 		96347B301A6A528E002800AD /* Mockups UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +134,8 @@
 		967949D91A627BF900FB747C /* adam */ = {
 			isa = PBXGroup;
 			children = (
+				21CE81941A809A3300E04F96 /* Lib */,
+				21CE81951A809A3F00E04F96 /* ServerAPI */,
 				96935FB01A725EBC00C178E2 /* ビ弁当.jpg */,
 				21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */,
 				21F1E0D21A721DC500CD9B56 /* MenuCell.swift */,
@@ -132,7 +152,6 @@
 				21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */,
 				967949DE1A627BF900FB747C /* adam.xcdatamodeld */,
 				967949DA1A627BF900FB747C /* Supporting Files */,
-				9614839E1A74D11E001CFA97 /* Const.swift */,
 			);
 			path = adam;
 			sourceTree = "<group>";
@@ -288,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21CE81971A809B4F00E04F96 /* Restuarants.swift in Sources */,
 				967949E21A627BFA00FB747C /* ViewController.swift in Sources */,
 				967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */,
 				21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */,
@@ -435,7 +455,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a98833b-5ae4-409d-b2d9-478e6c0f722e";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -455,7 +475,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a98833b-5ae4-409d-b2d9-478e6c0f722e";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
