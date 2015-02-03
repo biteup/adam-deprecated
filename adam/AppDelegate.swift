@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        prepConst()
         return true
     }
 
@@ -105,6 +106,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    func prepCurrency() {
+        var const:Const = Const.sharedInstance
+        var myDict: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("CurrencySignList", ofType: "plist") {
+            myDict = NSDictionary(contentsOfFile: path)
+        }
+        if let dict = myDict {
+            // Use your dict here
+            for (key, value) in dict {
+                let myKey = key as String
+                let sign = dict.valueForKey(myKey) as String
+                const.setConst("currencySign", key: myKey, value: sign)
+            }
+        }
+        print(const)
+
+    }
+    
+    func prepSetting() {
+        var const:Const = Const.sharedInstance
+        var myDict: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("Setting", ofType: "plist") {
+            myDict = NSDictionary(contentsOfFile: path)
+        }
+        if let dict = myDict {
+            // Use your dict here
+            for (key, value) in dict {
+                let myKey = key as String
+                let sign = dict.valueForKey(myKey) as String
+                const.setConst("setting", key: myKey, value: sign)
+            }
+        }
+        print(const)
+    }
+    
+    func prepConst() {
+        prepCurrency()
+        prepSetting()
     }
 
 }
