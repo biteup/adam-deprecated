@@ -45,30 +45,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func requestGeo() {
         locationManager.startUpdatingLocation()
-        
-        //println(locationManager.location)
-        /*
-        Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
-            .response { (request, response, data, error) in
-                println(request)
-                println(response)
-                println(error)
-        }
-        var url = "http://snakebite.herokuapp.com/restaurants"
-        Alamofire.request(.GET, url, parameters: ["": ""])
-            .responseJSON { (req, res, json, error) in
-                if(error != nil) {
-                    NSLog("Error: \(error)")
-                    println(req)
-                    println(res)
-                }
-                else {
-                    println("Success: \(url)")
-                    println(res)
-                    var json = JSON(json!)
-                    println(json)
-                }
-        }*/
     }
     /*
     *
@@ -129,61 +105,73 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func setupMenu() {
-        
-      /*  var menu1 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
-        var menu2 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
-        var menu3 = Menu(menuName: "幕の内弁当", storeName: "六本木駅弁", imgName: "幕の内弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 1000)
-        var menu4 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
-        var menu5 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
-        var menu6 = Menu(menuName: "ビ弁当", storeName: "六本木一丁目駅弁", imgName: "ビ弁当.jpg", distanceVal: 1.1, pointVal: 10, price: 800)
-        
-        menuArray.append(menu1)*/
-  //      menuArray.append(menu2)
-   //     menuArray.append(menu3)
-    //    menuArray.append(menu4)
-      //  menuArray.append(menu5)
-       // menuArray.append(menu6)
-        
         var svapi:RestuarantSVAPI = RestuarantSVAPI()
+        var current: CLLocation = CLLocation(latitude: 35.6895, longitude: 139.6917)
+        if let latitudeStr = self.const.getConst("location", key: "latitude") {
+            if let longitudeStr = self.const.getConst("location", key: "longitude") {
+                let latitudeDbl  = (latitudeStr as NSString).doubleValue
+                let longitudeDbl = (longitudeStr as NSString).doubleValue
+                current = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
+            }
+        }
+        let activityView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        activityView.center =   self.view.center;
+        activityView.startAnimating()
+        menuTableView.addSubview(activityView)
+        
         svapi.getRestuarantAll(10,
             {(somejson) -> Void in
                 if let json: AnyObject = somejson{
+                    println("Start")
+                    println(NSDate())
                     let myJSON = JSON(json)
                     //println(myJSON)
                     for (index: String, itemJSON: JSON) in myJSON["items"] {
                         
-                        if let storeName:String = itemJSON["name"].rawString(){
-                        
-                            for (index: String, menuJSON: JSON) in itemJSON["menus"] {
-                                var imgURLString:String = menuJSON["images"][0].string!
+                        if let storeName:String = itemJSON["name"].rawString() {
+                            if let storeLocationStr = itemJSON["geolocation"].rawString() {
+                                var latlong = split(storeLocationStr) {$0 == ","}
                                 
-                                imgURLString = imgURLString.stringByReplacingOccurrencesOfString("\"", withString: "", options:  NSStringCompareOptions.LiteralSearch, range: nil)
+                                let longitudeDbl:Double = (latlong[0] as NSString).doubleValue
+                                let latitudeDbl:Double = latlong.count > 1 ? (latlong[1] as NSString).doubleValue : 35.0
+                                let storeLocation = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
+                                let storeDistance = current.distanceFromLocation(storeLocation) / 1000
                                 
-                                let imgURL = NSURL(string: imgURLString)!
                                 
-                                var menu = Menu(menuName: menuJSON["name"].rawString()!,
-                                    storeName: storeName,
-                                    imgURL: imgURL,
-                                    distanceVal: 1.1,
-                                    pointVal: menuJSON["rating"].int!,
-                                    price: menuJSON["price"].float!)
-                                self.menuArray.append(menu)
+                                for (index: String, menuJSON: JSON) in itemJSON["menus"] {
+                                    var imgURLString:String = menuJSON["images"][0].string!
+                                
+                                    imgURLString = imgURLString.stringByReplacingOccurrencesOfString("\"", withString: "", options:  NSStringCompareOptions.LiteralSearch, range: nil)
+                                
+                                    if let menuName = menuJSON["name"].rawString() {
+                                        if let imgURL = NSURL(string: imgURLString) {
+                                            if let pointVal = menuJSON["rating"].int {
+                                                if let price    = menuJSON["price"].float {
+                                                    var menu = Menu(menuName: menuName,
+                                                        storeName: storeName,
+                                                        imgURL: imgURL,
+                                                        distanceVal: storeDistance,
+                                                        pointVal: pointVal,
+                                                        price: price)
+                                                    self.menuArray.append(menu)
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        //println(index)
                     }
+                    println("End")
+                    println(NSDate())
                     self.menuTableView.reloadData()
+                    activityView.stopAnimating()
                 }
             },
             {()->Void in
                 println("Error")
             })
-        /*
-        func successCallback(json:JSON)->Void{
-            println(json)
-        }
-        let successHandle = successCallback
-        svapi.getRestuarantAll(10, successCallback: successHandle)*/
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -205,7 +193,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         let menu = menuArray[indexPath.row]
-        
+
         cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price)
         
         return cell

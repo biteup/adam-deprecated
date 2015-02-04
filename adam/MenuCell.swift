@@ -66,7 +66,7 @@ class MenuCell: UITableViewCell {
             priceText = String(format: "%.2f", price)
         }
         
-        println(priceText)
+        //println(priceText)
         if let currency = const.getConst("setting", key: "CURRENCY") {
             if let currencySign = const.getConst("currencySign", key: currency) {
                 priceText = " " + currencySign + " " + priceText + "  "
@@ -91,8 +91,8 @@ class MenuCell: UITableViewCell {
         return self.storeNameLabel.text
     }
     
-    func setDistanceLabel(distance: Float) {
-        var formatter : String = String(format: "%.01f km", distance)
+    func setDistanceLabel(distance: Double) {
+        var formatter : String = String(format: "%.02f km", distance)
         self.distantLabel.text = formatter
     }
     
@@ -134,7 +134,7 @@ class MenuCell: UITableViewCell {
     }
 
     
-    func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Float, pointVal: Int, price:Float) {
+    func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Double, pointVal: Int, price:Float) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
         self.setImageByURL(imgURL)
