@@ -17,6 +17,12 @@ class MenuCell: UITableViewCell {
     @IBOutlet weak var pointLabel: UILabel!
     @IBOutlet weak var distantLabel: UILabel!
 
+    var menuName: String = ""
+    var storeName: String = ""
+    var menuImageURL: NSURL = NSURL(string: "http://example.com")!
+    var price: String = ""
+    var distant: String = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,6 +82,7 @@ class MenuCell: UITableViewCell {
     }
     
     func setMenuNameLabel(name: String) {
+        self.menuName = name
         self.menuNameLabel.text = name
     }
     
@@ -101,8 +108,8 @@ class MenuCell: UITableViewCell {
     }
     
     func setPointLabel(point: Int) {
-        var formatter : String = String(format: "%d yums", point)
-        self.pointLabel.text = formatter
+        //var formatter : String = String(format: "%d yums", point)
+        //self.pointLabel.text = formatter
     }
     
     func getPointLabel() ->String? {
@@ -110,30 +117,14 @@ class MenuCell: UITableViewCell {
     }
     
     func setImageByName(imgName: String) {
-        let url = NSURL(string: "http://greenasia-tokyo.com/wp/wp-content/uploads/2014/01/ga15.jpg")
-        let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
-        self.menuImageView.image = UIImage(data: data!)
-        //imageURL.image = UIImage(data: data!)
-        
-        //self.menuImageView.image = UIImage(named: imgName)
-        
-        //self.menuImageView.layer.borderColor = UIColorFromRGB(0x34495e).CGColor
-        //self.menuImageView.layer.borderWidth = 0.5
+        self.menuImageView.image = UIImage(named: imgName)
     }
     
     func setImageByURL(imgURL: NSURL) {
-        //let url = NSURL(string: "http://greenasia-tokyo.com/wp/wp-content/uploads/2014/01/ga15.jpg")
-        let data = NSData(contentsOfURL: imgURL) //make sure your image in this url does exist, otherwise unwrap in a if let check
+        let data = NSData(contentsOfURL: imgURL)
         self.menuImageView.image = UIImage(data: data!)
-        //imageURL.image = UIImage(data: data!)
-        
-        //self.menuImageView.image = UIImage(named: imgName)
-        
-        //self.menuImageView.layer.borderColor = UIColorFromRGB(0x34495e).CGColor
-        //self.menuImageView.layer.borderWidth = 0.5
     }
 
-    
     func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Double, pointVal: Int, price:Float) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)

@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import CoreLocation
+
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
@@ -41,6 +42,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = menuTableView.indexPathForCell(sender as UITableViewCell){
+            var menuVC: MenuDetailViewController = segue.destinationViewController as MenuDetailViewController
+            let cell: MenuCell = self.menuTableView.cellForRowAtIndexPath(indexPath) as MenuCell
+            menuVC.detailParam["menuName"] = cell.menuNameLabel.text
+            menuVC.detailParam["storeName"] = cell.storeNameLabel.text
+            menuVC.detailParam["storeLocation"] = "Roppongi"
+            menuVC.detailParam["price"] = cell.priceLabel.text
+            menuVC.detailParam["distant"] = cell.distantLabel.text
+                
+            println(cell.menuNameLabel.text)
+            //menuVC.recivedMenuName = "Heyyyy"
+        }
+        
+        
+        // selectIndexPath : NSIndexPath = self.tableView.i
+        
+      //  NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+       // UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
+       // NSLog(@"%@", cell.textLabel.text);
+        
     }
     
     func requestGeo() {
@@ -79,7 +103,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             //stop updating location to save battery life
             locationManager.stopUpdatingLocation()
             let coordinate:CLLocationCoordinate2D = placemark.location.coordinate
-            println(coordinate.latitude, coordinate.longitude)
+            println(placemark.location)
+            println(coordinate.latitude.description, coordinate.longitude.description)
             
             const.setConst("location", key: "latitude", value: coordinate.latitude.description)
             const.setConst("location", key: "longitude", value: coordinate.longitude.description)
@@ -127,11 +152,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let myJSON = JSON(json)
                     //println(myJSON)
                     for (index: String, itemJSON: JSON) in myJSON["items"] {
-                        
                         if let storeName:String = itemJSON["name"].rawString() {
                             if let storeLocationStr = itemJSON["geolocation"].rawString() {
                                 var latlong = split(storeLocationStr) {$0 == ","}
-                                
                                 let longitudeDbl:Double = (latlong[0] as NSString).doubleValue
                                 let latitudeDbl:Double = latlong.count > 1 ? (latlong[1] as NSString).doubleValue : 35.0
                                 let storeLocation = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
@@ -179,8 +202,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
+
         let cell: MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell") as MenuCell
         if menuArray.count <= 0 {
             return cell
@@ -195,7 +217,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let menu = menuArray[indexPath.row]
 
         cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price)
-        
         return cell
     }
 }
