@@ -153,11 +153,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     //println(myJSON)
                     for (index: String, itemJSON: JSON) in myJSON["items"] {
                         if let storeName:String = itemJSON["name"].rawString() {
-                            if let storeLocationStr = itemJSON["geolocation"].rawString() {
-                                var latlong = split(storeLocationStr) {$0 == ","}
-                                let longitudeDbl:Double = (latlong[0] as NSString).doubleValue
-                                let latitudeDbl:Double = latlong.count > 1 ? (latlong[1] as NSString).doubleValue : 35.0
-                                let storeLocation = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
+                            if let storeLocationStr = itemJSON["geolocation"].rawString()  {
+                                let longitudeDbl = itemJSON["geolocation"]["lon"].double
+                                let latitudeDbl  = itemJSON["geolocation"]["lat"].double
+                               // let longitudeDbl:Double = (longitude.rawString() as NSString).doubleValue
+                               // let latitudeDbl:Double = (latitude.rawString() as NSString).doubleValue
+                                let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
                                 let storeDistance = current.distanceFromLocation(storeLocation) / 1000
                                 
                                 
