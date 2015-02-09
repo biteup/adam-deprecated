@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--MenuList-->
+        <!--Gobbl-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="adam" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.1529411765" green="0.21960784310000001" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="280" id="KKC-lq-91w" customClass="MenuCell" customModule="adam" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="none" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="280" id="KKC-lq-91w" customClass="MenuCell" customModule="adam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KKC-lq-91w" id="taj-qk-cgf">
@@ -70,7 +70,7 @@
                                             <outlet property="menuNameLabel" destination="P8H-RB-1SG" id="1MI-8Y-6ZD"/>
                                             <outlet property="priceLabel" destination="AuU-Jy-5LE" id="Vml-ch-WvM"/>
                                             <outlet property="storeNameLabel" destination="BQV-PJ-PZU" id="KZf-LC-60n"/>
-                                            <segue destination="o3r-Xu-cBx" kind="push" id="NGy-ul-9SG"/>
+                                            <segue destination="o3r-Xu-cBx" kind="push" identifier="DetailScreen" id="NGy-ul-9SG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -81,12 +81,12 @@
                             </tableView>
                         </subviews>
                     </view>
-                    <navigationItem key="navigationItem" title="MenuList" id="9SC-4h-dh4">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="LxQ-EX-miU">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qTt-tX-Do1">
-                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
+                    <navigationItem key="navigationItem" title="Gobbl" id="9SC-4h-dh4">
+                        <barButtonItem key="rightBarButtonItem" id="LxQ-EX-miU">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qTt-tX-Do1">
+                                <rect key="frame" x="279" y="-3" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" backgroundImage="DiscoverIcon">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -113,7 +113,7 @@
             </objects>
             <point key="canvasLocation" x="912" y="34"/>
         </scene>
-        <!--Menu Detail View Controller-->
+        <!--Bento-->
         <scene sceneID="0XG-sX-BbU">
             <objects>
                 <viewController id="o3r-Xu-cBx" customClass="MenuDetailViewController" customModule="adam" customModuleProvider="target" sceneMemberID="viewController">
@@ -153,7 +153,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3zV-77-dXQ">
+                            <label userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ¥ 800 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3zV-77-dXQ">
                                 <rect key="frame" x="260" y="171" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.36862745099999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,7 +164,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7Bh-De-uQl"/>
+                    <navigationItem key="navigationItem" title="Bento" id="7Bh-De-uQl">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="MGy-zl-vpd"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="distantLabel" destination="GmF-an-t3g" id="hLY-fR-EF8"/>
                         <outlet property="imageView" destination="hjT-dS-MkP" id="MGz-1N-pUn"/>
@@ -205,9 +207,13 @@
             <point key="canvasLocation" x="260" y="34"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="DiscoverIcon" width="25" height="25"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

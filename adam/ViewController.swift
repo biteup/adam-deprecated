@@ -19,6 +19,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBAction func onClick(sender: AnyObject) {
         self.requestGeo()
+        var discoverVC: DiscoverViewConroller = DiscoverViewConroller(nibName: "DiscoverView", bundle: nil)
+        var discoverView = discoverVC.view
+        self.navigationController?.view.addSubview(discoverVC.view)
     }
     
     var menuArray:[Menu]    = [Menu]()
