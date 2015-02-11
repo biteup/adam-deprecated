@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var myButton: UIButton!
 
     @IBAction func onClick(sender: AnyObject) {
+        self.menuTableView.userInteractionEnabled = false
         self.myButton.enabled = false
         self.requestGeo()
         var discoverVC: DiscoverViewConroller = DiscoverViewConroller(nibName: "DiscoverView", bundle: nil)
@@ -221,6 +222,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func updateNotificationDiscover() {
         // reload here
         self.navigationController?.view.resignFirstResponder()
+        self.menuTableView.userInteractionEnabled = true
         self.myButton.enabled = true
         println(const.getConst("search", key: "tag"))
     }
