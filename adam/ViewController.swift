@@ -12,15 +12,19 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
+let discoverNotificationKey = "me.gobbl.adam.discoverNotificationKey"
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
     @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var myButton: UIButton!
 
     @IBAction func onClick(sender: AnyObject) {
+        self.myButton.enabled = false
         self.requestGeo()
         var discoverVC: DiscoverViewConroller = DiscoverViewConroller(nibName: "DiscoverView", bundle: nil)
         var discoverView = discoverVC.view
+        self.navigationController?.addChildViewController(discoverVC)
         self.navigationController?.view.addSubview(discoverVC.view)
     }
     
@@ -28,10 +32,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var const:Const         = Const.sharedInstance
     let locationManager     = CLLocationManager()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscover", name: discoverNotificationKey, object: nil)
+        
         self.setNeedsStatusBarAppearanceUpdate()
         
         self.locationManager.delegate = self
@@ -58,16 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             menuVC.detailParam["distant"] = cell.distantLabel.text
                 
             println(cell.menuNameLabel.text)
-            //menuVC.recivedMenuName = "Heyyyy"
         }
-        
-        
-        // selectIndexPath : NSIndexPath = self.tableView.i
-        
-      //  NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-       // UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
-       // NSLog(@"%@", cell.textLabel.text);
-        
     }
     
     func requestGeo() {
@@ -111,7 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             const.setConst("location", key: "latitude", value: coordinate.latitude.description)
             const.setConst("location", key: "longitude", value: coordinate.longitude.description)
-            /*
+            const.setConst("location", key: "locality", value: placemark.locality)
             if placemark.locality != nil {
                 println(placemark.locality)
             }
@@ -123,7 +119,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             if placemark.country != nil {
                 println(placemark.country)
-            }*/
+            }
         }
     }
 
@@ -142,10 +138,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 current = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
             }
         }
-        let activityView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+    /*    let activityView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         activityView.center =   self.view.center;
         activityView.startAnimating()
-        menuTableView.addSubview(activityView)
+        menuTableView.addSubview(activityView)*/
         
         svapi.getRestuarantAll(10,
             {(somejson) -> Void in
@@ -159,8 +155,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             if let storeLocationStr = itemJSON["geolocation"].rawString()  {
                                 let longitudeDbl = itemJSON["geolocation"]["lon"].double
                                 let latitudeDbl  = itemJSON["geolocation"]["lat"].double
-                               // let longitudeDbl:Double = (longitude.rawString() as NSString).doubleValue
-                               // let latitudeDbl:Double = (latitude.rawString() as NSString).doubleValue
                                 let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
                                 let storeDistance = current.distanceFromLocation(storeLocation) / 1000
                                 
@@ -193,7 +187,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     println("End")
                     println(NSDate())
                     self.menuTableView.reloadData()
-                    activityView.stopAnimating()
+                    //activityView.stopAnimating()
                 }
             },
             {()->Void in
@@ -222,6 +216,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price)
         return cell
+    }
+    
+    func updateNotificationDiscover() {
+        // reload here
+        self.navigationController?.view.resignFirstResponder()
+        self.myButton.enabled = true
+        println(const.getConst("search", key: "tag"))
     }
 }
 

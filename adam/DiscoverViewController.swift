@@ -9,28 +9,27 @@
 import Foundation
 import UIKit
 
-class DiscoverViewConroller : UIViewController, UIGestureRecognizerDelegate {
+class DiscoverViewConroller : UIViewController {
     
-    @IBOutlet weak var swipeView: UIView!
+    @IBOutlet var myView: DiscoverView!
+    @IBOutlet weak var myPickerView: UIPickerView!
     
-    @IBOutlet var panGestureHandle: [UIButton]!
-    
-    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translationInView(self.view)
-        recognizer.view!.center = CGPoint(x:recognizer.view!.center.x + translation.x,
-            y:recognizer.view!.center.y + translation.y)
-        recognizer.setTranslation(CGPointZero, inView: self.view)
-        println("GOGOGOGOGO")
+    @IBAction func onClickCancel(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(discoverNotificationKey, object: self)
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
     }
+    let startPosition:CGPoint = CGPoint(x: 0, y: 1000)
+    let targetPosition:CGPoint = CGPoint(x: 0, y: 19)
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        println("Hi there")
-       // var swipeGesture: UIGestureRecognizer = UIGestureRecognizer(target: self.view, action: <#Selector#>)
-        //UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToDoMethod)];
-        //[swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
-        //[[self innerView] addGestureRecognizer: swipeGesture];
-        var panGestureRecognizer: UIPanGestureRecognizer = 
+        self.myView.frame.origin = self.startPosition
+        
+        UIView.animateWithDuration(0.5, animations: {
+            self.myView.frame.origin = self.targetPosition
+            }
+        )
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,6 +40,5 @@ class DiscoverViewConroller : UIViewController, UIGestureRecognizerDelegate {
         return true
     }
     
-    
-    
+
 }

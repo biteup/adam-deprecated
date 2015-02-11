@@ -10,7 +10,6 @@ import Foundation
 
 var equivalentEmptyDictionary = [String: String]()
 
-
 class Const {
     private var constant = Dictionary<String, Dictionary<String,String>>()
     
