@@ -26,6 +26,7 @@
 		967949F61A627BFA00FB747C /* adamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949F51A627BFA00FB747C /* adamTests.swift */; };
 		9680BA4A1A87245700C81181 /* glasses-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9680BA491A87245700C81181 /* glasses-50.png */; };
 		9692AFA91A85D26C00022E42 /* MenuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692AFA81A85D26C00022E42 /* MenuDetailViewController.swift */; };
+		96BE79BC1A8A377B000D60A3 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE79BB1A8A377B000D60A3 /* Tag.swift */; };
 		96CC00231A862BA10057E62B /* DiscoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96CC00251A862BA10057E62B /* DiscoverView.xib */; };
 		96FA4B151A7FE1BE00D08824 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FA4B141A7FE1BE00D08824 /* SwiftyJSON.framework */; };
 		96FEACD61A8606360075531A /* gobblar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FEACD51A8606360075531A /* gobblar.png */; };
@@ -67,6 +68,7 @@
 		967949F51A627BFA00FB747C /* adamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adamTests.swift; sourceTree = "<group>"; };
 		9680BA491A87245700C81181 /* glasses-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-50.png"; sourceTree = "<group>"; };
 		9692AFA81A85D26C00022E42 /* MenuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDetailViewController.swift; sourceTree = "<group>"; };
+		96BE79BB1A8A377B000D60A3 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		96CC00241A862BA10057E62B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DiscoverView.xib; sourceTree = "<group>"; };
 		96FA4B141A7FE1BE00D08824 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		96FEACD51A8606360075531A /* gobblar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gobblar.png; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				21CE81961A809B4F00E04F96 /* Restuarants.swift */,
+				96BE79BB1A8A377B000D60A3 /* Tag.swift */,
 			);
 			name = ServerAPI;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */,
 				21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */,
 				96FEACDF1A8610D80075531A /* DiscoverView.swift in Sources */,
+				96BE79BC1A8A377B000D60A3 /* Tag.swift in Sources */,
 				967949DD1A627BF900FB747C /* AppDelegate.swift in Sources */,
 				21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */,
 				9614839F1A74D11E001CFA97 /* Const.swift in Sources */,
