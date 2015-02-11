@@ -18,7 +18,6 @@ class DiscoverView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var swipeLocationButton: UIButton!
 
-    @IBOutlet weak var swipeLocationTextField: UITextField!
     var pickerData:[String] = ["Surprised!"]
     var const:Const         = Const.sharedInstance
     
