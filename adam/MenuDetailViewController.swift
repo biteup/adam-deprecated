@@ -26,7 +26,6 @@ class MenuDetailViewController : UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.setNeedsStatusBarAppearanceUpdate()
-        println("Hey, buddy")
    /*     self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()

@@ -16,6 +16,7 @@ let discoverNotificationKey = "me.gobbl.adam.discoverNotificationKey"
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
+    @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var myButton: UIButton!
 
@@ -38,13 +39,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view, typically from a nib.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscover", name: discoverNotificationKey, object: nil)
         
-        self.setNeedsStatusBarAppearanceUpdate()
+        
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-
+        
+        self.setNeedsStatusBarAppearanceUpdate()
         self.setupMenu()
     }
 
@@ -226,5 +228,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myButton.enabled = true
         println(const.getConst("search", key: "tag"))
     }
+    
 }
 

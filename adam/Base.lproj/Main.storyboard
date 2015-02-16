@@ -98,6 +98,7 @@
                     <connections>
                         <outlet property="menuTableView" destination="WSW-kS-Fgu" id="8O6-7p-MGm"/>
                         <outlet property="myButton" destination="qTt-tX-Do1" id="SN7-Jv-De0"/>
+                        <outlet property="navigationBar" destination="9SC-4h-dh4" id="gZl-GP-C49"/>
                         <outlet property="searchDisplayController" destination="IFj-vi-oJo" id="snh-LK-Hx5"/>
                     </connections>
                 </viewController>

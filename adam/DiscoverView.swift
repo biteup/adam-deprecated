@@ -18,7 +18,7 @@ class DiscoverView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var swipeLocationButton: UIButton!
 
-    var pickerData:[String] = ["Surprised!"]
+    var pickerData:[String] = ["Surprised ME ME ME ME ME ME ME ME ME ME ME ME !"]
     var const:Const         = Const.sharedInstance
     
     override func awakeFromNib() {
@@ -26,7 +26,7 @@ class DiscoverView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         // Initialization code
         
         self.locationInit()
-        
+        self.addBlurEffect()
         
         let svapi:TagSVAPI = TagSVAPI()
         svapi.getTags(10,
@@ -44,6 +44,38 @@ class DiscoverView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
             { () -> Void in
             
             })
+    }
+    
+    func addBlurEffect() {
+        let blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        let bluredEffectView = UIVisualEffectView(effect: blurEffect)
+        let screenFrame = UIScreen.mainScreen().bounds
+        
+        bluredEffectView.frame = screenFrame
+        self.insertSubview(bluredEffectView, atIndex: 1)
+        
+        
+        let vibrancyEffect:UIVibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        let vibrancyEffectView:UIVisualEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        
+        vibrancyEffectView.frame = CGRect(x: 0, y: 400, width: screenFrame.width, height: 80)//bluredEffectView.frame
+        println(vibrancyEffectView.frame)
+        //CGRect(x: 0, y: 400, width: screenFrame.width, height: 40)
+        
+        // Add Label to Vibrancy View
+        var swipeLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: screenFrame.width, height: 30))
+        swipeLabel.textAlignment = NSTextAlignment.Center
+        swipeLabel.font = UIFont(name: swipeLabel.font.description, size: 20)
+        swipeLabel.text = "HIHIHIHIHIHIHI"
+        println(swipeLabel.frame.origin)
+        
+        vibrancyEffectView.contentView.addSubview(swipeLabel)
+        
+        // Add Vibrancy View to Blur View
+        bluredEffectView.contentView.insertSubview(vibrancyEffectView, atIndex: 1)
+        
+        //self.insertSubview(bluredEffectView, aboveSubview: self)
+        //self.addSubview(bluredEffectView)
     }
     
     func pickerViewInit() {
@@ -106,17 +138,23 @@ class DiscoverView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         rowHeightForComponent component: Int) -> CGFloat{
         return 216.0
     }
+    
     func pickerView(pickerView: UIPickerView,
         viewForRow row: Int,
         forComponent component: Int,
         reusingView view: UIView!) -> UIView{
-            var rect:CGRect = CGRectMake(0, 0, 50, 216)
+            let screenSize: CGRect = UIScreen.mainScreen().bounds
+            let labelWidth:CGFloat = screenSize.width * 0.65
+            let labelHeight:CGFloat = 216.0
+            
+            
+            var rect:CGRect = CGRectMake(0, 0, labelWidth, labelHeight)
             var label:UILabel = UILabel(frame: rect)
             label.text = pickerData[row]
-            label.sizeToFit()
+            label.adjustsFontSizeToFitWidth = true
             label.opaque = false
             label.textAlignment = NSTextAlignment.Center
-            //label.textColor = UIColor(red: (255/255.0), green: (118/255.0), blue: (25/255.0), alpha: 1.0)
+            label.textColor = UIColor.whiteColor()//UIColor(red: (255/255.0), green: (118/255.0), blue: (25/255.0), alpha: 1.0)
             label.clipsToBounds = false
             label.transform = CGAffineTransformRotate(label.transform, CGFloat(M_PI/2))
             return label
