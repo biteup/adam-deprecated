@@ -12,7 +12,8 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-let discoverNotificationKey = "me.gobbl.adam.discoverNotificationKey"
+let discoverCloseNotificationKey = "me.gobbl.adam.discoverCloseNotificationKey"
+let discoverSearchNotificationKey = "me.gobbl.adam.discoverSearchNotificationKey"
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
 
@@ -44,7 +45,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let app:UIApplication = UIApplication.sharedApplication()
         app.networkActivityIndicatorVisible = true
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscover", name: discoverNotificationKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverClose", name: discoverCloseNotificationKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverSearch", name: discoverSearchNotificationKey, object: nil)
         
         
         
@@ -228,12 +230,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    func updateNotificationDiscover() {
+    func populateMenu() {
+    
+    }
+    
+    func updateNotificationDiscoverClose() {
         // reload here
         self.navigationController?.view.resignFirstResponder()
         self.menuTableView.userInteractionEnabled = true
         self.myButton.enabled = true
-        println(const.getConst("search", key: "tag"))
+        const.deleteConst("search", key: "picker")
+        println("Cancel")
+    }
+    
+    func updateNotificationDiscoverSearch() {
+        // reload here
+        self.navigationController?.view.resignFirstResponder()
+        self.menuTableView.userInteractionEnabled = true
+        self.myButton.enabled = true
+        if let searchTag = const.getConst("search", key: "picker") {
+            const.setConst("search", key: "tag", value: searchTag)
+        }
+        const.deleteConst("search", key: "picker")
+        println("Search")
+        /// reload search here
     }
     
 }

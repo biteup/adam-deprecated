@@ -15,17 +15,19 @@ class DiscoverViewConroller : UIViewController {
     @IBOutlet weak var myPickerView: UIPickerView!
     
     @IBAction func onClickCancel(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(discoverNotificationKey, object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(discoverCloseNotificationKey, object: self)
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
     }
+    
     let startPosition:CGPoint = CGPoint(x: 0, y: 500)
     let targetPosition:CGPoint = CGPoint(x: 0, y: 0)
+    var const:Const         = Const.sharedInstance
     
     override func viewDidLoad(){
         super.viewDidLoad()
         self.myView.frame.origin = self.startPosition
-        
+        self.addBlurEffect()
         UIView.animateWithDuration(0.5, animations: {
             self.myView.frame.origin = self.targetPosition
             }
@@ -37,8 +39,46 @@ class DiscoverViewConroller : UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    func addBlurEffect() {
+        self.view.backgroundColor = UIColor.clearColor()
+        let blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let bluredEffectView = UIVisualEffectView(effect: blurEffect)
+        let screenFrame = UIScreen.mainScreen().bounds
+        
+        bluredEffectView.frame = screenFrame
+        self.view.insertSubview(bluredEffectView, atIndex: 1)
+        
+        
+        let vibrancyEffect:UIVibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        
+        let vibrancyEffectView:UIVisualEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        
+        let swipeLabelPostion = CGPoint(x: 0, y: screenFrame.height - 88)
+        
+        vibrancyEffectView.frame = CGRect(x: 0, y: 0, width: screenFrame.width, height: screenFrame.height)
+        vibrancyEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        // Add Label to Vibrancy View
+        
+        let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        button.setTranslatesAutoresizingMaskIntoConstraints(false)
+        button.frame = CGRectMake(swipeLabelPostion.x, swipeLabelPostion.y, screenFrame.width, 88)
+        button.backgroundColor = UIColor.clearColor()
+        button.setTitle("Search for Your Selection", forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont(name: "Helvetica", size: 22)
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        var swipeLabel:UILabel = UILabel(frame: CGRect(x: swipeLabelPostion.x, y: swipeLabelPostion.y, width: screenFrame.width, height: 88))
+        
+        vibrancyEffectView.contentView.addSubview(swipeLabel)
+        vibrancyEffectView.contentView.addSubview(button)
+        // Add Vibrancy View to Blur View
+        bluredEffectView.contentView.insertSubview(vibrancyEffectView, atIndex: 1)
+        
+    }
+    
     func slideToRightWithGestureRecognizer() {
-        NSNotificationCenter.defaultCenter().postNotificationName(discoverNotificationKey, object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(discoverSearchNotificationKey, object: self)
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
     }
@@ -52,6 +92,13 @@ class DiscoverViewConroller : UIViewController {
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func buttonAction(sender:UIButton!)
+    {
+        NSNotificationCenter.defaultCenter().postNotificationName(discoverSearchNotificationKey, object: self)
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
     }
     
 }
