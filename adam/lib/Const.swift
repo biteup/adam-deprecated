@@ -46,6 +46,13 @@ class Const {
         }
     }
     
+    func deleteConst(type:String, key: String) {
+        if !constant.isEmpty &&  constant[type] != nil{
+            constant[type]?[key] = nil
+        }
+    
+    }
+    
     class var sharedInstance : Const {
         struct Static {
             static var onceToken : dispatch_once_t = 0

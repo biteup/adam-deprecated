@@ -67,7 +67,7 @@ class HorizontalPicker: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
             completion: {
                 (value:Bool) in
                 self.myUIPickerView.selectRow(index, inComponent: 0, animated: true)
-                self.const.setConst("search", key: "tag", value: self.pickerData[index])
+                self.const.setConst("search", key: "picker", value: self.pickerData[index])
         })
     }
     
@@ -111,7 +111,7 @@ class HorizontalPicker: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView,
         didSelectRow row: Int,
         inComponent component: Int){
-            const.setConst("search", key: "tag", value: pickerData[row])
+            const.setConst("search", key: "picker", value: pickerData[row])
             
     }
 }
