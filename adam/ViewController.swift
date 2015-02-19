@@ -25,7 +25,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myButton.enabled = false
         self.requestGeo()
         var discoverVC: DiscoverViewConroller = DiscoverViewConroller(nibName: "DiscoverView", bundle: nil)
+        //discoverVC.view.
         var discoverView = discoverVC.view
+        
+        UIWindowLevelStatusBar + 1
         self.navigationController?.addChildViewController(discoverVC)
         self.navigationController?.view.addSubview(discoverVC.view)
     }
@@ -37,6 +40,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let app:UIApplication = UIApplication.sharedApplication()
+        app.networkActivityIndicatorVisible = true
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscover", name: discoverNotificationKey, object: nil)
         
         

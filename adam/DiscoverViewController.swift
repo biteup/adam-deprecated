@@ -14,14 +14,13 @@ class DiscoverViewConroller : UIViewController {
     @IBOutlet var myView: DiscoverView!
     @IBOutlet weak var myPickerView: UIPickerView!
     
-    @IBOutlet weak var swipeButton: UIButton!
     @IBAction func onClickCancel(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(discoverNotificationKey, object: self)
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
     }
-    let startPosition:CGPoint = CGPoint(x: 0, y: 1000)
-    let targetPosition:CGPoint = CGPoint(x: 0, y: 19)
+    let startPosition:CGPoint = CGPoint(x: 0, y: 500)
+    let targetPosition:CGPoint = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -47,7 +46,7 @@ class DiscoverViewConroller : UIViewController {
     func settingSwipeToSearchGesture() {
         var swipeRightSearch: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "slideToRightWithGestureRecognizer")
         swipeRightSearch.direction = UISwipeGestureRecognizerDirection.Right
-        self.swipeButton.addGestureRecognizer(swipeRightSearch)
+        //self.swipeButton.addGestureRecognizer(swipeRightSearch)
 
     }
     
