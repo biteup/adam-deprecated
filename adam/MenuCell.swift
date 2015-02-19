@@ -128,7 +128,9 @@ class MenuCell: UITableViewCell {
     func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Double, pointVal: Int, price:Float) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
-        self.setImageByURL(imgURL)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)){
+            self.setImageByURL(imgURL)
+        }
         self.setPriceLabel(price)
         self.setDistanceLabel(distanceVal)
         self.setPointLabel(pointVal)
