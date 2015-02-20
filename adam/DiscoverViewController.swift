@@ -27,20 +27,21 @@ class DiscoverViewConroller : UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         self.myView.frame.origin = self.startPosition
-        self.addBlurEffect()
+        self.addBlurPage()
         UIView.animateWithDuration(0.5, animations: {
             self.myView.frame.origin = self.targetPosition
             }
         )
-        self.settingSwipeToSearchGesture()
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func addBlurEffect() {
+    func addBlurPage() {
         self.view.backgroundColor = UIColor.clearColor()
+        
         let blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let bluredEffectView = UIVisualEffectView(effect: blurEffect)
         let screenFrame = UIScreen.mainScreen().bounds
@@ -75,6 +76,7 @@ class DiscoverViewConroller : UIViewController {
         // Add Vibrancy View to Blur View
         bluredEffectView.contentView.insertSubview(vibrancyEffectView, atIndex: 1)
         
+        self.settingSwipeToSearchGesture(button)
     }
     
     func slideToRightWithGestureRecognizer() {
@@ -83,10 +85,10 @@ class DiscoverViewConroller : UIViewController {
         self.removeFromParentViewController()
     }
     
-    func settingSwipeToSearchGesture() {
+    func settingSwipeToSearchGesture(swipeArea:UIView) {
         var swipeRightSearch: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "slideToRightWithGestureRecognizer")
         swipeRightSearch.direction = UISwipeGestureRecognizerDirection.Right
-        //self.swipeButton.addGestureRecognizer(swipeRightSearch)
+        swipeArea.addGestureRecognizer(swipeRightSearch)
 
     }
     
