@@ -15,7 +15,7 @@ import CoreLocation
 let discoverCloseNotificationKey = "me.gobbl.adam.discoverCloseNotificationKey"
 let discoverSearchNotificationKey = "me.gobbl.adam.discoverSearchNotificationKey"
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate{
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate{
 
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var menuTableView: UITableView!
@@ -37,6 +37,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var menuArray:[Menu]    = [Menu]()
     var const:Const         = Const.sharedInstance
     let locationManager     = CLLocationManager()
+    var populateLength = 3
+    var currentLoadedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +50,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverClose", name: discoverCloseNotificationKey, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverSearch", name: discoverSearchNotificationKey, object: nil)
         
-        
+        self.menuTableView.delegate = self
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
+        currentLoadedIndex = 0
+        populateLength     = 3
+        
         self.setNeedsStatusBarAppearanceUpdate()
-        self.setupMenu()
+        self.populateMenu(false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,13 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             })
     }
-    /// updateLocationInfo
-    /// 1. This will update constant shared value of location
-    /// 2. This will stop updating Location sevice.
-    ///
-    ///
-    /// :param: placemark in CLPlacemark
-    /// :returns: latitude and longitude
+
     func updateLocationInfo(placemark: CLPlacemark){
         if placemark.location != nil {
             //stop updating location to save battery life
@@ -140,7 +139,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         println("Error while updating location" + error.localizedDescription)
     }
     
-    func setupMenu() {
+    func populateMenu(isReset:Bool) {
+        if isReset {
+            self.currentLoadedIndex = 0
+            self.menuArray = []
+        }
         var svapi:RestuarantSVAPI = RestuarantSVAPI()
         var current: CLLocation = CLLocation(latitude: 35.6895, longitude: 139.6917)
         if let latitudeStr = self.const.getConst("location", key: "latitude") {
@@ -155,12 +158,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityView.startAnimating()
         menuTableView.addSubview(activityView)*/
         
-        svapi.getRestuarantAll(10,
+        svapi.getRestuarant(self.currentLoadedIndex,
+            limit: self.populateLength,
             {(somejson) -> Void in
                 if let json: AnyObject = somejson{
+                    self.currentLoadedIndex += self.populateLength
                     println("Start")
                     println(NSDate())
                     let myJSON = JSON(json)
+                    println(myJSON)
                     //println(myJSON)
                     for (index: String, itemJSON: JSON) in myJSON["items"] {
                         if let storeName:String = itemJSON["name"].rawString() {
@@ -196,8 +202,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             }
                         }
                     }
-                    println("End")
-                    println(NSDate())
                     self.menuTableView.reloadData()
                     //activityView.stopAnimating()
                 }
@@ -230,8 +234,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    func populateMenu() {
-    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
+            populateMenu(false)
+        }
     }
     
     func updateNotificationDiscoverClose() {
@@ -241,6 +247,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myButton.enabled = true
         const.deleteConst("search", key: "picker")
         println("Cancel")
+        
+        populateMenu(true)
     }
     
     func updateNotificationDiscoverSearch() {
@@ -253,6 +261,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         const.deleteConst("search", key: "picker")
         println("Search")
+        populateMenu(true)
         /// reload search here
     }
     

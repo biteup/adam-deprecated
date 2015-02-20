@@ -34,4 +34,26 @@ class RestuarantSVAPI {
                 }
             })
     }
+    
+    func getRestuarant(start:Int, limit:Int, successCallback:(json:AnyObject?)->Void, errorCallback:()->Void){
+        
+        let params = [
+            "start": String(start),
+            "limit": String(limit)
+        ]
+        
+        let my_response = Alamofire.request(.GET, apiBaseURL + apiEndPoint, parameters: params)
+            .responseJSON({ (req, res, json, error) in
+                if(error != nil) {
+                    NSLog("Error: \(error)")
+                    println(req)
+                    println(res)
+                    errorCallback()
+                }
+                else {
+                    println(req)
+                    successCallback(json: json)
+                }
+            })
+    }
 }
