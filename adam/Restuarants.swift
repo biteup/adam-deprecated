@@ -51,7 +51,6 @@ class RestuarantSVAPI {
                     errorCallback()
                 }
                 else {
-                    println(req)
                     successCallback(json: json)
                 }
             })
@@ -74,7 +73,6 @@ class RestuarantSVAPI {
                     errorCallback()
                 }
                 else {
-                    println(req)
                     successCallback(json: json)
                 }
             })

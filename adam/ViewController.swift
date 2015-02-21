@@ -162,8 +162,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         println("Start")
                         println(NSDate())
                         let myJSON = JSON(json)
-                        println(myJSON)
-                        //println(myJSON)
                         for (index: String, itemJSON: JSON) in myJSON["items"] {
                             if let storeName:String = itemJSON["name"].rawString() {
                                 if let storeLocationStr = itemJSON["geolocation"].rawString()  {
@@ -219,8 +217,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         println("Start")
                         println(NSDate())
                         let myJSON = JSON(json)
-                        println(myJSON)
-                        //println(myJSON)
                         for (index: String, itemJSON: JSON) in myJSON["items"] {
                             if let storeName:String = itemJSON["name"].rawString() {
                                 if let storeLocationStr = itemJSON["geolocation"].rawString()  {
