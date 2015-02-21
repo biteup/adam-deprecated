@@ -15,13 +15,15 @@ class Menu {
     var distanceVal:Double  = 1.0
     var pointVal:Int       = 1
     var price:Float        = 800
+    var address:String     = "roppongi"
     
-    init(menuName: String, storeName: String, imgURL: NSURL, distanceVal: Double, pointVal: Int, price: Float) {
+    init(menuName: String, storeName: String, imgURL: NSURL, distanceVal: Double, pointVal: Int, price: Float, address: String) {
         self.menuName       = menuName
         self.storeName      = storeName
         self.imgURL         = imgURL
         self.distanceVal    = distanceVal
         self.pointVal       = pointVal
         self.price          = price
+        self.address        = address
     }
 }

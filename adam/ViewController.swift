@@ -26,10 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myButton.enabled = false
         self.requestGeo()
         var discoverVC: DiscoverViewConroller = DiscoverViewConroller(nibName: "DiscoverView", bundle: nil)
-        //discoverVC.view.
         var discoverView = discoverVC.view
-        
-        UIWindowLevelStatusBar + 1
         self.navigationController?.addChildViewController(discoverVC)
         self.navigationController?.view.addSubview(discoverVC.view)
     }
@@ -50,15 +47,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverClose", name: discoverCloseNotificationKey, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverSearch", name: discoverSearchNotificationKey, object: nil)
         
+        self.currentLoadedIndex = 0
+        self.populateLength     = 3
+        
+        
         self.menuTableView.delegate = self
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        
-        currentLoadedIndex = 0
-        populateLength     = 3
         
         self.setNeedsStatusBarAppearanceUpdate()
         self.populateMenu(false, tags: nil)
@@ -73,13 +71,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let indexPath = menuTableView.indexPathForCell(sender as UITableViewCell){
             var menuVC: MenuDetailViewController = segue.destinationViewController as MenuDetailViewController
             let cell: MenuCell = self.menuTableView.cellForRowAtIndexPath(indexPath) as MenuCell
-            menuVC.detailParam["menuName"] = cell.menuNameLabel.text
-            menuVC.detailParam["storeName"] = cell.storeNameLabel.text
-            menuVC.detailParam["storeLocation"] = "Roppongi"
-            menuVC.detailParam["price"] = cell.priceLabel.text
-            menuVC.detailParam["distant"] = cell.distantLabel.text
-                
-            println(cell.menuNameLabel.text)
+            
+            menuVC.detailParam["menuName"] = cell.getMenuNameLabel() //  cell.menuNameLabel.text
+            menuVC.detailParam["storeName"] = cell.getStoreNameLabel()// cell.storeNameLabel.text
+            menuVC.detailParam["storeLocation"] = cell.getAddress() // "Roppongi"
+            menuVC.detailParam["price"] =  cell.getPriceLabel()
+            menuVC.detailParam["distant"] = cell.getDistanceLabel() //cell.distantLabel.text
         }
     }
     
@@ -177,7 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                     let latitudeDbl  = itemJSON["geolocation"]["lat"].double
                                     let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
                                     let storeDistance = current.distanceFromLocation(storeLocation) / 1000
-                                    
+                                    let storeAddress  = itemJSON["address"].string!
                                     
                                     for (index: String, menuJSON: JSON) in itemJSON["menus"] {
                                         var imgURLString:String = menuJSON["images"][0].string!
@@ -193,7 +190,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                                             imgURL: imgURL,
                                                             distanceVal: storeDistance,
                                                             pointVal: pointVal,
-                                                            price: price)
+                                                            price: price,
+                                                            address: storeAddress)
                                                         self.menuArray.append(menu)
                                                         
                                                     }
@@ -229,7 +227,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                     let latitudeDbl  = itemJSON["geolocation"]["lat"].double
                                     let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
                                     let storeDistance = current.distanceFromLocation(storeLocation) / 1000
-                                    
+                                    let storeAddress  = itemJSON["address"].string!
                                     
                                     for (index: String, menuJSON: JSON) in itemJSON["menus"] {
                                         var imgURLString:String = menuJSON["images"][0].string!
@@ -245,7 +243,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                                             imgURL: imgURL,
                                                             distanceVal: storeDistance,
                                                             pointVal: pointVal,
-                                                            price: price)
+                                                            price: price,
+                                                            address: storeAddress)
                                                         self.menuArray.append(menu)
                                                         
                                                     }
@@ -278,16 +277,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if menuArray.count <= 0 {
             return cell
         }
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor(red: 255, green: 255, blue: 50, alpha: 1.0)
-        }
-        else {
-           // cell.backgroundColor = UIColor.greenColor()
-        }
         
         let menu = menuArray[indexPath.row]
 
-        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price)
+        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price, address: menu.address)
         return cell
     }
     
@@ -307,7 +300,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.menuTableView.userInteractionEnabled = true
         self.myButton.enabled = true
         const.deleteConst("search", key: "picker")
-        println("Cancel")
     }
     
     func updateNotificationDiscoverSearch() {
@@ -320,9 +312,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             populateMenu(true, tags: searchTag)
         }
         const.deleteConst("search", key: "picker")
-        println("Search")
-        
-        /// reload search here
     }
     
 }
