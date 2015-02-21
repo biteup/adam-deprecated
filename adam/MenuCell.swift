@@ -22,6 +22,7 @@ class MenuCell: UITableViewCell {
     var menuImageURL: NSURL = NSURL(string: "http://example.com")!
     var price: String = ""
     var distant: String = ""
+    var address: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -81,6 +82,10 @@ class MenuCell: UITableViewCell {
         resizePriceLabelFrame(priceText)
     }
     
+    func getPriceLabel() -> String? {
+        return self.priceLabel.text
+    }
+    
     func setMenuNameLabel(name: String) {
         self.menuName = name
         self.menuNameLabel.text = name
@@ -125,7 +130,15 @@ class MenuCell: UITableViewCell {
         self.menuImageView.image = UIImage(data: data!)
     }
 
-    func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Double, pointVal: Int, price:Float) {
+    func setAddress(address:String) {
+        self.address = address
+    }
+
+    func getAddress() -> String?{
+        return self.address
+    }
+
+    func setMenuCell(inMenuName: String, storeName: String, imgURL:NSURL, distanceVal:Double, pointVal: Int, price:Float, address: String) {
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)){
@@ -134,5 +147,6 @@ class MenuCell: UITableViewCell {
         self.setPriceLabel(price)
         self.setDistanceLabel(distanceVal)
         self.setPointLabel(pointVal)
+        self.setAddress(address)
     }
 }

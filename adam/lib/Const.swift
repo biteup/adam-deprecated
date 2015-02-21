@@ -10,7 +10,6 @@ import Foundation
 
 var equivalentEmptyDictionary = [String: String]()
 
-
 class Const {
     private var constant = Dictionary<String, Dictionary<String,String>>()
     
@@ -45,6 +44,13 @@ class Const {
             }
 
         }
+    }
+    
+    func deleteConst(type:String, key: String) {
+        if !constant.isEmpty &&  constant[type] != nil{
+            constant[type]?[key] = nil
+        }
+    
     }
     
     class var sharedInstance : Const {

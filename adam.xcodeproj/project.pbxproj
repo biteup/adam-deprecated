@@ -12,7 +12,6 @@
 		21CE81971A809B4F00E04F96 /* Restuarants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE81961A809B4F00E04F96 /* Restuarants.swift */; };
 		21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D21A721DC500CD9B56 /* MenuCell.swift */; };
 		21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D41A72217800CD9B56 /* Menu.swift */; };
-		21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */; };
 		21F1E0D91A7253AF00CD9B56 /* nav_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0D81A7253AF00CD9B56 /* nav_bg.png */; };
 		21F1E0DB1A72564900CD9B56 /* nav_bg@2.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */; };
 		9614839F1A74D11E001CFA97 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614839E1A74D11E001CFA97 /* Const.swift */; };
@@ -25,9 +24,15 @@
 		967949E71A627BFA00FB747C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967949E61A627BFA00FB747C /* Images.xcassets */; };
 		967949EA1A627BFA00FB747C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967949E81A627BFA00FB747C /* LaunchScreen.xib */; };
 		967949F61A627BFA00FB747C /* adamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967949F51A627BFA00FB747C /* adamTests.swift */; };
+		967F8F761A94DA6000AB4E5D /* HorizontalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F8F751A94DA6000AB4E5D /* HorizontalPicker.swift */; };
+		9680BA4A1A87245700C81181 /* glasses-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9680BA491A87245700C81181 /* glasses-50.png */; };
 		9692AFA91A85D26C00022E42 /* MenuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692AFA81A85D26C00022E42 /* MenuDetailViewController.swift */; };
-		96935FB11A725EBC00C178E2 /* ビ弁当.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96935FB01A725EBC00C178E2 /* ビ弁当.jpg */; };
+		96BE79BC1A8A377B000D60A3 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE79BB1A8A377B000D60A3 /* Tag.swift */; };
+		96CC00231A862BA10057E62B /* DiscoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96CC00251A862BA10057E62B /* DiscoverView.xib */; };
 		96FA4B151A7FE1BE00D08824 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FA4B141A7FE1BE00D08824 /* SwiftyJSON.framework */; };
+		96FEACD61A8606360075531A /* gobblar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FEACD51A8606360075531A /* gobblar.png */; };
+		96FEACDF1A8610D80075531A /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FEACDE1A8610D80075531A /* DiscoverView.swift */; };
+		96FEACE11A8613690075531A /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FEACE01A8613690075531A /* DiscoverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +51,6 @@
 		21CE81961A809B4F00E04F96 /* Restuarants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restuarants.swift; sourceTree = "<group>"; };
 		21F1E0D21A721DC500CD9B56 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		21F1E0D41A72217800CD9B56 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
-		21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "幕の内弁当.jpg"; sourceTree = "<group>"; };
 		21F1E0D81A7253AF00CD9B56 /* nav_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bg.png; sourceTree = "<group>"; };
 		21F1E0DA1A72564900CD9B56 /* nav_bg@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_bg@2.png"; sourceTree = "<group>"; };
 		9614839E1A74D11E001CFA97 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = lib/Const.swift; sourceTree = "<group>"; };
@@ -63,9 +67,15 @@
 		967949EF1A627BFA00FB747C /* adamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = adamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		967949F41A627BFA00FB747C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967949F51A627BFA00FB747C /* adamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adamTests.swift; sourceTree = "<group>"; };
+		967F8F751A94DA6000AB4E5D /* HorizontalPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPicker.swift; sourceTree = "<group>"; };
+		9680BA491A87245700C81181 /* glasses-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-50.png"; sourceTree = "<group>"; };
 		9692AFA81A85D26C00022E42 /* MenuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDetailViewController.swift; sourceTree = "<group>"; };
-		96935FB01A725EBC00C178E2 /* ビ弁当.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ビ弁当.jpg"; sourceTree = "<group>"; };
+		96BE79BB1A8A377B000D60A3 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		96CC00241A862BA10057E62B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DiscoverView.xib; sourceTree = "<group>"; };
 		96FA4B141A7FE1BE00D08824 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		96FEACD51A8606360075531A /* gobblar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gobblar.png; sourceTree = "<group>"; };
+		96FEACDE1A8610D80075531A /* DiscoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		96FEACE01A8613690075531A /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				9614839E1A74D11E001CFA97 /* Const.swift */,
+				967F8F751A94DA6000AB4E5D /* HorizontalPicker.swift */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -101,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				21CE81961A809B4F00E04F96 /* Restuarants.swift */,
+				96BE79BB1A8A377B000D60A3 /* Tag.swift */,
 			);
 			name = ServerAPI;
 			sourceTree = "<group>";
@@ -136,11 +148,11 @@
 		967949D91A627BF900FB747C /* adam */ = {
 			isa = PBXGroup;
 			children = (
+				9680BA4B1A87246200C81181 /* Assets */,
+				96FEACD71A8606460075531A /* View */,
 				9692AFAA1A85D27300022E42 /* ViewController */,
 				21CE81941A809A3300E04F96 /* Lib */,
 				21CE81951A809A3F00E04F96 /* ServerAPI */,
-				96935FB01A725EBC00C178E2 /* ビ弁当.jpg */,
-				21F1E0D61A72299200CD9B56 /* 幕の内弁当.jpg */,
 				21F1E0D21A721DC500CD9B56 /* MenuCell.swift */,
 				21F1E0D41A72217800CD9B56 /* Menu.swift */,
 				967949DC1A627BF900FB747C /* AppDelegate.swift */,
@@ -183,13 +195,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9680BA4B1A87246200C81181 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				96FEACD51A8606360075531A /* gobblar.png */,
+				9680BA491A87245700C81181 /* glasses-50.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		9692AFAA1A85D27300022E42 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				96FEACE01A8613690075531A /* DiscoverViewController.swift */,
 				9692AFA81A85D26C00022E42 /* MenuDetailViewController.swift */,
 				967949E11A627BF900FB747C /* ViewController.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		96FEACD71A8606460075531A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96CC00251A862BA10057E62B /* DiscoverView.xib */,
+				96FEACDE1A8610D80075531A /* DiscoverView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,12 +309,13 @@
 				961483A11A74EB9D001CFA97 /* CurrencySignList.plist in Resources */,
 				21F1E0D91A7253AF00CD9B56 /* nav_bg.png in Resources */,
 				216646021A762FC8004A3378 /* Setting.plist in Resources */,
-				21F1E0D71A72299200CD9B56 /* 幕の内弁当.jpg in Resources */,
+				9680BA4A1A87245700C81181 /* glasses-50.png in Resources */,
 				967949E51A627BFA00FB747C /* Main.storyboard in Resources */,
+				96CC00231A862BA10057E62B /* DiscoverView.xib in Resources */,
 				967949EA1A627BFA00FB747C /* LaunchScreen.xib in Resources */,
+				96FEACD61A8606360075531A /* gobblar.png in Resources */,
 				21F1E0DB1A72564900CD9B56 /* nav_bg@2.png in Resources */,
 				967949E71A627BFA00FB747C /* Images.xcassets in Resources */,
-				96935FB11A725EBC00C178E2 /* ビ弁当.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,13 +352,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9692AFA91A85D26C00022E42 /* MenuDetailViewController.swift in Sources */,
+				967F8F761A94DA6000AB4E5D /* HorizontalPicker.swift in Sources */,
 				21CE81971A809B4F00E04F96 /* Restuarants.swift in Sources */,
 				967949E21A627BFA00FB747C /* ViewController.swift in Sources */,
 				967949E01A627BF900FB747C /* adam.xcdatamodeld in Sources */,
 				21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */,
+				96FEACDF1A8610D80075531A /* DiscoverView.swift in Sources */,
+				96BE79BC1A8A377B000D60A3 /* Tag.swift in Sources */,
 				967949DD1A627BF900FB747C /* AppDelegate.swift in Sources */,
 				21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */,
 				9614839F1A74D11E001CFA97 /* Const.swift in Sources */,
+				96FEACE11A8613690075531A /* DiscoverViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +399,14 @@
 				967949E91A627BFA00FB747C /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		96CC00251A862BA10057E62B /* DiscoverView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96CC00241A862BA10057E62B /* Base */,
+			);
+			name = DiscoverView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -458,17 +502,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kittikorn Ariyasuk (9H45ZBSXPC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kittikorn Ariyasuk (9H45ZBSXPC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = adam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "994f5d13-44d9-49d6-9979-6712e9ea6ff7";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -478,17 +522,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kittikorn Ariyasuk (9H45ZBSXPC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kittikorn Ariyasuk (9H45ZBSXPC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = adam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "994f5d13-44d9-49d6-9979-6712e9ea6ff7";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

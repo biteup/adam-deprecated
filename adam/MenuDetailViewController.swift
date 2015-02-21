@@ -25,8 +25,7 @@ class MenuDetailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.setNeedsStatusBarAppearanceUpdate()
-        println("Hey, buddy")
+        //self.setNeedsStatusBarAppearanceUpdate()
    /*     self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -41,12 +40,32 @@ class MenuDetailViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func resizePriceLabelFrame(priceText: String){
+        //Calculate the expected size based on the font and linebreak mode of your label
+        var maximumLabelSize: CGSize = CGSizeMake(320, 50)
+        let myPriceText: NSString = priceText as NSString
+        let expectedLabelSize: CGSize = myPriceText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)])
+        
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenSize.width
+        
+        var newFrame: CGRect = priceLabel.frame
+        newFrame.size.width = round(expectedLabelSize.width)
+        newFrame.origin.x   = screenWidth - newFrame.size.width
+        
+        priceLabel.text = priceText
+        priceLabel.frame = newFrame
+        priceLabel.textAlignment = NSTextAlignment.Center
+        
+    }
+    
     func setupDetail(){
         self.menuNameLabel.text         = self.detailParam["menuName"]
         self.storeNameLabel.text        = self.detailParam["storeName"]
         self.storeLocationLabel.text    = self.detailParam["storeLocation"]
-        self.priceLabel.text            = self.detailParam["price"]
+        self.resizePriceLabelFrame(self.detailParam["price"]!)
         self.distantLabel.text          = self.detailParam["distant"]
+        self.storeLocationLabel.sizeToFit()
     }
 
 }
