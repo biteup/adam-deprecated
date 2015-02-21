@@ -25,7 +25,7 @@ class MenuDetailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.setNeedsStatusBarAppearanceUpdate()
+        //self.setNeedsStatusBarAppearanceUpdate()
    /*     self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -63,7 +63,7 @@ class MenuDetailViewController : UIViewController {
         self.menuNameLabel.text         = self.detailParam["menuName"]
         self.storeNameLabel.text        = self.detailParam["storeName"]
         self.storeLocationLabel.text    = self.detailParam["storeLocation"]
-    self.resizePriceLabelFrame(self.detailParam["price"]!)
+        self.resizePriceLabelFrame(self.detailParam["price"]!)
         self.distantLabel.text          = self.detailParam["distant"]
         self.storeLocationLabel.sizeToFit()
     }

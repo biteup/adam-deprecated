@@ -70,6 +70,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = menuTableView.indexPathForCell(sender as UITableViewCell){
             var menuVC: MenuDetailViewController = segue.destinationViewController as MenuDetailViewController
+            
             let cell: MenuCell = self.menuTableView.cellForRowAtIndexPath(indexPath) as MenuCell
             
             menuVC.detailParam["menuName"] = cell.getMenuNameLabel() //  cell.menuNameLabel.text
@@ -77,17 +78,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             menuVC.detailParam["storeLocation"] = cell.getAddress() // "Roppongi"
             menuVC.detailParam["price"] =  cell.getPriceLabel()
             menuVC.detailParam["distant"] = cell.getDistanceLabel() //cell.distantLabel.text
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         }
     }
-    
     func requestGeo() {
         locationManager.startUpdatingLocation()
     }
-    /*
-    *
-    *  didUpdateLocations
-    *
-    */
+    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
             CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
                 
@@ -202,7 +199,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 }
                             }
                         }
-                        self.menuTableView.reloadData()
+                        if isReset {
+                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                        } else {
+                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                        }
                         //activityView.stopAnimating()
                     }
                 },
@@ -255,7 +256,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 }
                             }
                         }
-                        self.menuTableView.reloadData()
+                        if isReset {
+                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                        } else {
+                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                        }
                         //activityView.stopAnimating()
                     }
                 },
