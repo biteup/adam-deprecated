@@ -32,6 +32,8 @@ class MenuDetailViewController : UIViewController {
         self.locationManager.startUpdatingLocation()
         
         self.setupMenu()*/
+        var mixPanelInstance:Mixpanel = Mixpanel.sharedInstance()
+        mixPanelInstance.track("Simulate Bento Viewed", properties: ["Menu" : self.detailParam["menuName"]!, "name" : "iOS"])
         self.setupDetail()
     }
     
