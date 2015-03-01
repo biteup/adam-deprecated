@@ -32,7 +32,6 @@ class DiscoverViewConroller : UIViewController {
             self.myView.frame.origin = self.targetPosition
             }
         )
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,9 +50,7 @@ class DiscoverViewConroller : UIViewController {
         
         
         let vibrancyEffect:UIVibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-        
         let vibrancyEffectView:UIVisualEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        
         let swipeLabelPostion = CGPoint(x: 0, y: screenFrame.height - 88)
         
         vibrancyEffectView.frame = CGRect(x: 0, y: 0, width: screenFrame.width, height: screenFrame.height)
