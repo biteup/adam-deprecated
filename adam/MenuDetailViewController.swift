@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-
+import Alamofire
 
 class MenuDetailViewController : UIViewController {
     
@@ -21,17 +21,13 @@ class MenuDetailViewController : UIViewController {
     
     
     var detailParam: [String : String] = ["menuName" : "", "storeName" : "","storeLocaiton" : "","price" : "","distant" : ""]
+    var imgURL:NSURL = NSURL(string: "http://upload.wikimedia.org/wikipedia/commons/a/ad/Kyaraben_panda.jpg")!
+    var isMenuSet = false
+    var menuImage = UIImage(named: "default_bento.jpg")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //self.setNeedsStatusBarAppearanceUpdate()
-   /*     self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-        
-        self.setupMenu()*/
         var mixPanelInstance:Mixpanel = Mixpanel.sharedInstance()
         mixPanelInstance.track("Simulate Bento Viewed", properties: ["Menu" : self.detailParam["menuName"]!, "name" : "iOS"])
         self.setupDetail()
@@ -61,6 +57,27 @@ class MenuDetailViewController : UIViewController {
         
     }
     
+    func setImageByURL(imgURL: NSURL) {
+        print(imgURL)
+        Alamofire.request(.GET, imgURL).progress{ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+           // self.imgProgressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+                if totalBytesRead == totalBytesExpectedToRead {
+                    //   self.imgProgressView.hidden = true
+                }
+            }
+            .response() {
+                (_, _, data, _) in
+                
+                if let image = UIImage(data: data! as NSData) {
+                    //self.menuImageURL = imgURL
+                    self.imageView.image = image
+                    //self.imgNotFoundLabel.alpha = 0.0
+                } else {
+                    //self.imgNotFoundLabel.alpha = 1.0
+                }
+        }
+    }
+    
     func setupDetail(){
         self.menuNameLabel.text         = self.detailParam["menuName"]
         self.storeNameLabel.text        = self.detailParam["storeName"]
@@ -68,6 +85,7 @@ class MenuDetailViewController : UIViewController {
         self.resizePriceLabelFrame(self.detailParam["price"]!)
         self.distantLabel.text          = self.detailParam["distant"]
         self.storeLocationLabel.sizeToFit()
+        self.setImageByURL(self.imgURL)
     }
 
 }

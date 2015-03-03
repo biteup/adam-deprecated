@@ -30,12 +30,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.addChildViewController(discoverVC)
         self.navigationController?.view.addSubview(discoverVC.view)
     }
+    var menuArray : NSMutableArray = []
     
-    var menuArray:[Menu]    = [Menu]()
     var const:Const         = Const.sharedInstance
+    var locationService:LocationService = LocationService.sharedInstance
+    
     let locationManager     = CLLocationManager()
     var populateLength = 3
     var currentLoadedIndex = 0
+    var isPopulating = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +46,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let app:UIApplication = UIApplication.sharedApplication()
         app.networkActivityIndicatorVisible = true
+        //app.statusBarStyle = UIStatusBarStyle.BlackOpaque
+        
+        //self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+      //  self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+        self.setNeedsStatusBarAppearanceUpdate()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverClose", name: discoverCloseNotificationKey, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverSearch", name: discoverSearchNotificationKey, object: nil)
         
         self.currentLoadedIndex = 0
         self.populateLength     = 3
-        
         
         self.menuTableView.delegate = self
         
@@ -58,8 +66,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
-        self.setNeedsStatusBarAppearanceUpdate()
-        self.populateMenu(false, tags: nil)
+        //self.setNeedsStatusBarAppearanceUpdate()
+        self.populateMenu(true, tags: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,11 +81,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             let cell: MenuCell = self.menuTableView.cellForRowAtIndexPath(indexPath) as MenuCell
             
-            menuVC.detailParam["menuName"] = cell.getMenuNameLabel() //  cell.menuNameLabel.text
-            menuVC.detailParam["storeName"] = cell.getStoreNameLabel()// cell.storeNameLabel.text
-            menuVC.detailParam["storeLocation"] = cell.getAddress() // "Roppongi"
+            menuVC.detailParam["menuName"] = cell.getMenuNameLabel()
+            menuVC.detailParam["storeName"] = cell.getStoreNameLabel()
+            menuVC.detailParam["storeLocation"] = cell.getAddress()
             menuVC.detailParam["price"] =  cell.getPriceLabel()
-            menuVC.detailParam["distant"] = cell.getDistanceLabel() //cell.distantLabel.text
+            menuVC.detailParam["distant"] = cell.getDistanceLabel()
+            menuVC.imgURL = cell.getImageURL()
+            
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         }
     }
@@ -107,24 +117,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             //stop updating location to save battery life
             locationManager.stopUpdatingLocation()
             let coordinate:CLLocationCoordinate2D = placemark.location.coordinate
-            println(placemark.location)
-            println(coordinate.latitude.description, coordinate.longitude.description)
-            
-            const.setConst("location", key: "latitude", value: coordinate.latitude.description)
-            const.setConst("location", key: "longitude", value: coordinate.longitude.description)
-            const.setConst("location", key: "locality", value: placemark.locality)
-            if placemark.locality != nil {
-                println(placemark.locality)
-            }
-            if placemark.postalCode != nil {
-                println(placemark.postalCode)
-            }
-            if placemark.administrativeArea  != nil {
-                println(placemark.administrativeArea )
-            }
-            if placemark.country != nil {
-                println(placemark.country)
-            }
+            locationService.setLocation(placemark.location)
+            locationService.setLocality(placemark.locality)
         }
     }
 
@@ -133,25 +127,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         println("Error while updating location" + error.localizedDescription)
     }
     
-    func populateMenu(isReset:Bool, tags: String?) {
+    func populateMenu(isReset:Bool, tags: String?) -> Void {
+        if self.isPopulating {
+            return
+        }
         if isReset {
             self.currentLoadedIndex = 0
             self.menuArray = []
         }
         
+        isPopulating = true
         var svapi:RestuarantSVAPI = RestuarantSVAPI()
-        var current: CLLocation = CLLocation(latitude: 35.6895, longitude: 139.6917)
-        if let latitudeStr = self.const.getConst("location", key: "latitude") {
-            if let longitudeStr = self.const.getConst("location", key: "longitude") {
-                let latitudeDbl  = (latitudeStr as NSString).doubleValue
-                let longitudeDbl = (longitudeStr as NSString).doubleValue
-                current = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
-            }
-        }
-    /*    let activityView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-        activityView.center =   self.view.center;
-        activityView.startAnimating()
-        menuTableView.addSubview(activityView)*/
         if let searchTag = tags {
             svapi.getRestuarantByTags(searchTag,
                 start: self.currentLoadedIndex,
@@ -159,16 +145,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 {(somejson) -> Void in
                     if let json: AnyObject = somejson{
                         self.currentLoadedIndex += self.populateLength
-                        println("Start")
-                        println(NSDate())
                         let myJSON = JSON(json)
                         for (index: String, itemJSON: JSON) in myJSON["items"] {
                             if let storeName:String = itemJSON["name"].rawString() {
                                 if let storeLocationStr = itemJSON["geolocation"].rawString()  {
-                                    let longitudeDbl = itemJSON["geolocation"]["lon"].double
-                                    let latitudeDbl  = itemJSON["geolocation"]["lat"].double
-                                    let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
-                                    let storeDistance = current.distanceFromLocation(storeLocation) / 1000
+                                    let longitudeDbl = itemJSON["geolocation"]["lon"].double!
+                                    let latitudeDbl  = itemJSON["geolocation"]["lat"].double!
+                                    let storeLocation = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
+                                    let storeDistance = self.locationService.getDistanceFrom(storeLocation)
                                     let storeAddress  = itemJSON["address"].string!
                                     
                                     for (index: String, menuJSON: JSON) in itemJSON["menus"] {
@@ -180,14 +164,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                             if let imgURL = NSURL(string: imgURLString) {
                                                 if let pointVal = menuJSON["rating"].int {
                                                     if let price    = menuJSON["price"].float {
-                                                        var menu = Menu(menuName: menuName,
+                                                        var menu:Menu = Menu(menuName: menuName,
                                                             storeName: storeName,
                                                             imgURL: imgURL,
                                                             distanceVal: storeDistance,
                                                             pointVal: pointVal,
                                                             price: price,
-                                                            address: storeAddress)
-                                                        self.menuArray.append(menu)
+                                                            address: storeAddress,
+                                                            latitude: latitudeDbl,
+                                                            longitude: longitudeDbl)
+                                                        self.menuArray.addObject(menu)
                                                         
                                                     }
                                                 }
@@ -198,10 +184,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             }
                         }
                         if isReset {
-                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                            }
                         } else {
-                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.menuTableView.reloadData()
+                            }
+                            
+                            //self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
                         }
+                        self.isPopulating = false
                         //activityView.stopAnimating()
                     }
                 },
@@ -214,16 +207,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 {(somejson) -> Void in
                     if let json: AnyObject = somejson{
                         self.currentLoadedIndex += self.populateLength
-                        println("Start")
-                        println(NSDate())
+                        let lastItem = self.menuArray.count
+                        
                         let myJSON = JSON(json)
                         for (index: String, itemJSON: JSON) in myJSON["items"] {
                             if let storeName:String = itemJSON["name"].rawString() {
                                 if let storeLocationStr = itemJSON["geolocation"].rawString()  {
-                                    let longitudeDbl = itemJSON["geolocation"]["lon"].double
-                                    let latitudeDbl  = itemJSON["geolocation"]["lat"].double
-                                    let storeLocation = CLLocation(latitude: latitudeDbl!, longitude: longitudeDbl!)
-                                    let storeDistance = current.distanceFromLocation(storeLocation) / 1000
+                                    let longitudeDbl = itemJSON["geolocation"]["lon"].double!
+                                    let latitudeDbl  = itemJSON["geolocation"]["lat"].double!
+                                    let storeLocation = CLLocation(latitude: latitudeDbl, longitude: longitudeDbl)
+                                    let storeDistance = self.locationService.getDistanceFrom(storeLocation)
                                     let storeAddress  = itemJSON["address"].string!
                                     
                                     for (index: String, menuJSON: JSON) in itemJSON["menus"] {
@@ -241,9 +234,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                                             distanceVal: storeDistance,
                                                             pointVal: pointVal,
                                                             price: price,
-                                                            address: storeAddress)
-                                                        self.menuArray.append(menu)
-                                                        
+                                                            address: storeAddress,
+                                                            latitude: latitudeDbl,
+                                                            longitude: longitudeDbl)
+                                                        self.menuArray.addObject(menu)
                                                     }
                                                 }
                                             }
@@ -253,11 +247,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             }
                         }
                         if isReset {
-                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Bottom)
+                            }
+                            
                         } else {
-                            self.menuTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.menuTableView.reloadData()
+                                
+                                //self.menuTableView.
+                                //self.menuTableView.reloadSections(NSIndexSet(index: lastItem), withRowAnimation: UITableViewRowAnimation.Bottom)
+                            }
                         }
-                        //activityView.stopAnimating()
+                        self.isPopulating = false
                     }
                 },
                 {()->Void in
@@ -274,23 +276,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell: MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell") as MenuCell
+        let cell:MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell", forIndexPath: indexPath) as MenuCell
+        //let cell = MenuCell()
+        //let cell: MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell") as MenuCell
         if menuArray.count <= 0 {
             return cell
         }
         
-        let menu = menuArray[indexPath.row]
-
-        cell.setMenuCell(menu.menuName, storeName: menu.storeName, imgURL: menu.imgURL, distanceVal: menu.distanceVal, pointVal: menu.pointVal, price: menu.price, address: menu.address)
+        let menu = menuArray.objectAtIndex(indexPath.row) as Menu
+        
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)){
+            if menu.imgIsSet {
+                cell.setImage(menu.getMenuImage())
+            } else {
+                cell.setImageByURL(menu.imgURL, menuObj: menu)
+            }
+        }
+        
+        let storeDistance = self.locationService.getDistanceFrom(CLLocation(latitude: menu.latitude, longitude: menu.longitude))
+        
+        cell.setMenuCell(menu.menuName, storeName: menu.storeName, distanceVal: storeDistance, pointVal: menu.pointVal, price: menu.price, address: menu.address)
+        
         return cell
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
             if let searchTag = const.getConst("search", key: "tag") {
-                populateMenu(false, tags: searchTag)
+                self.populateMenu(false, tags: searchTag)
             } else {
-                populateMenu(false, tags: nil)
+                self.populateMenu(false, tags: nil)
             }
         }
     }
@@ -304,16 +320,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func updateNotificationDiscoverSearch() {
+        // Mixapanel Track
+        var mixPanelInstance:Mixpanel = Mixpanel.sharedInstance()
+        
         // reload here
         self.navigationController?.view.resignFirstResponder()
         self.menuTableView.userInteractionEnabled = true
         self.myButton.enabled = true
         if let searchTag = const.getConst("search", key: "picker") {
+            mixPanelInstance.track("Simulate Search Tag", properties: ["Tag" : searchTag])
             const.setConst("search", key: "tag", value: searchTag)
-            populateMenu(true, tags: searchTag)
+            self.populateMenu(true, tags: searchTag)
         }
         const.deleteConst("search", key: "picker")
     }
     
+    func updateLocation() {
+        
+    }
 }
 

@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         prepConst()
         var mixPanelInstance:Mixpanel = Mixpanel.sharedInstanceWithToken("38c30d15d147f74c302b5162f3a2ed65")
+        UIApplication.sharedApplication().statusBarStyle = .BlackOpaque
         return true
     }
 
