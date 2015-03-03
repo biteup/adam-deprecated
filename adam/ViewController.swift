@@ -46,12 +46,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let app:UIApplication = UIApplication.sharedApplication()
         app.networkActivityIndicatorVisible = true
-        //app.statusBarStyle = UIStatusBarStyle.BlackOpaque
-        
-        //self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-      //  self.navigationController?.navigationBar.barTintColor = UIColor.blueColor()
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-        self.setNeedsStatusBarAppearanceUpdate()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverClose", name: discoverCloseNotificationKey, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationDiscoverSearch", name: discoverSearchNotificationKey, object: nil)

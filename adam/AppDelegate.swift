@@ -19,7 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         prepConst()
         var mixPanelInstance:Mixpanel = Mixpanel.sharedInstanceWithToken("38c30d15d147f74c302b5162f3a2ed65")
-        UIApplication.sharedApplication().statusBarStyle = .BlackOpaque
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+        
+        let font = UIFont(name: "Lobster-Regular", size: 20)
+        if let font = font {
+            UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName : font , NSForegroundColorAttributeName : UIColor(
+                red:  CGFloat(255) / 255.0,
+                green: CGFloat(119) / 255.0,
+                blue: CGFloat(78) / 255.0,
+                alpha: CGFloat(1.0)
+            )]
+        }
         return true
     }
 

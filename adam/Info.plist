@@ -51,5 +51,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Lobster-Regular.ttf</string>
+		<string>Cabin-Regular.ttf</string>
+		<string>Cabin-Medium.ttf</string>
+		<string>Cabin-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>

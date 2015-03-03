@@ -12,12 +12,12 @@ import Alamofire
 
 class MenuDetailViewController : UIViewController {
     
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var menuNameLabel: UILabel!
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeLocationLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var distantLabel: UILabel!
+    @IBOutlet weak var menuImageView: UIImageView!
     
     
     var detailParam: [String : String] = ["menuName" : "", "storeName" : "","storeLocaiton" : "","price" : "","distant" : ""]
@@ -70,7 +70,7 @@ class MenuDetailViewController : UIViewController {
                 
                 if let image = UIImage(data: data! as NSData) {
                     //self.menuImageURL = imgURL
-                    self.imageView.image = image
+                    self.menuImageView.image = image
                     //self.imgNotFoundLabel.alpha = 0.0
                 } else {
                     //self.imgNotFoundLabel.alpha = 1.0
@@ -85,6 +85,7 @@ class MenuDetailViewController : UIViewController {
         self.resizePriceLabelFrame(self.detailParam["price"]!)
         self.distantLabel.text          = self.detailParam["distant"]
         self.storeLocationLabel.sizeToFit()
+        println(self.menuImageView.frame.size)
         self.setImageByURL(self.imgURL)
     }
 

@@ -175,7 +175,6 @@ class MenuCell: UITableViewCell {
         
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
-        //self.menuImageURL = imgURL
         self.setPriceLabel(price)
         self.setDistanceLabel(distanceVal)
         self.setAddress(address)
