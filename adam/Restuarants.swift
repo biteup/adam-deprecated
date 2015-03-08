@@ -20,9 +20,11 @@ class RestuarantSVAPI {
     
     }
     func getRestuarantAll(limit:Int, successCallback:(json:AnyObject?)->Void, errorCallback:()->Void){
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
         let my_response = Alamofire.request(.GET, apiBaseURL + apiEndPoint)
             .responseJSON({ (req, res, json, error) in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 if(error != nil) {
                     NSLog("Error: \(error)")
                     println(req)
@@ -41,9 +43,11 @@ class RestuarantSVAPI {
             "start": String(start),
             "limit": String(limit)
         ]
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
         let my_response = Alamofire.request(.GET, apiBaseURL + apiEndPoint, parameters: params)
             .responseJSON({ (req, res, json, error) in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 if(error != nil) {
                     NSLog("Error: \(error)")
                     println(req)
@@ -63,9 +67,11 @@ class RestuarantSVAPI {
             "start": String(start),
             "limit": String(limit)
         ]
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
         let my_response = Alamofire.request(.GET, apiBaseURL + apiEndPoint, parameters: params)
             .responseJSON({ (req, res, json, error) in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 if(error != nil) {
                     NSLog("Error: \(error)")
                     println(req)
