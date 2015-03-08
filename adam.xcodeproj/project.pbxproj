@@ -14,7 +14,6 @@
 		216646021A762FC8004A3378 /* Setting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 216646011A762FC8004A3378 /* Setting.plist */; };
 		216646041A763C55004A3378 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216646031A763C55004A3378 /* CoreLocation.framework */; };
 		21CE81971A809B4F00E04F96 /* Restuarants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE81961A809B4F00E04F96 /* Restuarants.swift */; };
-		21E373A51AA56C7900217553 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967949DB1A627BF900FB747C /* Info.plist */; };
 		21F1E0D31A721DC500CD9B56 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D21A721DC500CD9B56 /* MenuCell.swift */; };
 		21F1E0D51A72217800CD9B56 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1E0D41A72217800CD9B56 /* Menu.swift */; };
 		9614839F1A74D11E001CFA97 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9614839E1A74D11E001CFA97 /* Const.swift */; };
@@ -358,7 +357,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E373A51AA56C7900217553 /* Info.plist in Resources */,
 				961483A11A74EB9D001CFA97 /* CurrencySignList.plist in Resources */,
 				216646021A762FC8004A3378 /* Setting.plist in Resources */,
 				9680BA4A1A87245700C81181 /* glasses-50.png in Resources */,
