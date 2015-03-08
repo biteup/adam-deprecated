@@ -115,9 +115,18 @@ class MenuCell: UITableViewCell {
         return self.storeNameLabel.text
     }
     
+    func updateDistanceLabelVisible() {
+        if let isLocationEnable:AnyObject = NSUserDefaults.standardUserDefaults().valueForKey("isLocationEnable") {
+            self.distantLabel.hidden = !(isLocationEnable as Bool)
+        } else {
+            self.distantLabel.hidden = false
+        }
+    }
+    
     func setDistanceLabel(distance: Double) {
         var formatter : String = String(format: "%.02f km", distance)
         self.distantLabel.text = formatter
+        self.updateDistanceLabelVisible()
     }
     
     func getDistanceLabel() ->String? {
@@ -172,7 +181,6 @@ class MenuCell: UITableViewCell {
     }
 
     func setMenuCell(inMenuName: String, storeName: String, distanceVal:Double, pointVal: Int, price:Float, address: String) {
-        
         self.setMenuNameLabel(inMenuName)
         self.setStoreNameLabel(storeName)
         self.setPriceLabel(price)
