@@ -15,7 +15,7 @@ import CoreLocation
 let discoverCloseNotificationKey = "me.gobbl.adam.discoverCloseNotificationKey"
 let discoverSearchNotificationKey = "me.gobbl.adam.discoverSearchNotificationKey"
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate{
+class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate{
 
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var menuTableView: UITableView!
@@ -36,9 +36,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var locationService:LocationService = LocationService.sharedInstance
     
     let locationManager     = CLLocationManager()
-    var populateLength = 3
-    var currentLoadedIndex = 0
-    var isPopulating = false
+    var populateLength      = 3
+    var currentLoadedIndex  = 0
+    var isPopulating        = false
+    var isInitiated         = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +55,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
         
-        //self.setNeedsStatusBarAppearanceUpdate()
-        self.populateMenu(true, tags: nil)
+        if (CLLocationManager.authorizationStatus() == .NotDetermined)  {
+            self.locationManager.requestAlwaysAuthorization()
+        } else {
+            isInitiated = true
+            self.populateMenu(true, tags: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,13 +85,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         }
     }
+    
+    
+    func initMenu() {
+        struct Static {
+            static var onceToken : dispatch_once_t = 0
+        }
+        dispatch_once(&Static.onceToken) {
+            self.populateMenu(false, tags: nil)
+        }
+    }
+    
     func requestGeo() {
         locationManager.startUpdatingLocation()
     }
     
+    // authorization status
+    func locationManager(manager: CLLocationManager!,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+            var isUserAnswered = false
+            
+            switch status {
+            case CLAuthorizationStatus.Restricted:
+                isUserAnswered = true
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLocationEnable")
+            case CLAuthorizationStatus.Denied:
+                isUserAnswered = true
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLocationEnable")
+            case CLAuthorizationStatus.NotDetermined:
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLocationEnable")
+            default:
+                isUserAnswered = true
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLocationEnable")
+            }
+            if isUserAnswered {
+                self.initMenu()
+                if !self.isInitiated {
+                    self.isInitiated = true
+                }
+            }
+            
+    }
+    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
             CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
-                
                 if (error != nil) {
                     println("Reverse geocoder failed with error" + error.localizedDescription)
                     return
@@ -106,7 +146,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func updateLocationInfo(placemark: CLPlacemark){
         if placemark.location != nil {
             //stop updating location to save battery life
-            locationManager.stopUpdatingLocation()
+            self.locationManager.stopUpdatingLocation()
             let coordinate:CLLocationCoordinate2D = placemark.location.coordinate
             locationService.setLocation(placemark.location)
             locationService.setLocality(placemark.locality)
@@ -268,8 +308,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell:MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell", forIndexPath: indexPath) as MenuCell
-        //let cell = MenuCell()
-        //let cell: MenuCell = tableView.dequeueReusableCellWithIdentifier("menuCell") as MenuCell
+
         if menuArray.count <= 0 {
             return cell
         }
@@ -293,6 +332,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        if !isInitiated {
+            return
+        }
         if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
             if let searchTag = const.getConst("search", key: "tag") {
                 self.populateMenu(false, tags: searchTag)
