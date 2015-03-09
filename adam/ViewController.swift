@@ -318,6 +318,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDa
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)){
             if menu.imgIsSet {
+                cell.updateImgURL(menu.imgURL)
                 cell.setImage(menu.getMenuImage())
             } else {
                 cell.setImageByURL(menu.imgURL, menuObj: menu)

@@ -141,6 +141,10 @@ class MenuCell: UITableViewCell {
         self.menuImageView.image = UIImage(named: imgName)
     }
     
+    func updateImgURL(imgURL: NSURL) {
+        self.menuImageURL = imgURL
+    }
+    
     func setImageByURL(imgURL: NSURL, menuObj:Menu) {
         self.menuImageURL = imgURL
         
