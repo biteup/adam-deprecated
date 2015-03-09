@@ -195,7 +195,6 @@
 				21CE81941A809A3300E04F96 /* Lib */,
 				21CE81951A809A3F00E04F96 /* ServerAPI */,
 				21F1E0D21A721DC500CD9B56 /* MenuCell.swift */,
-				213EBC6C1AA563E800F93CE0 /* Fonts */,
 				21F1E0D41A72217800CD9B56 /* Menu.swift */,
 				967949DC1A627BF900FB747C /* AppDelegate.swift */,
 				967949E31A627BFA00FB747C /* Main.storyboard */,
@@ -238,6 +237,7 @@
 		9680BA4B1A87246200C81181 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				213EBC6C1AA563E800F93CE0 /* Fonts */,
 				96FEACD51A8606360075531A /* gobblar.png */,
 				9680BA491A87245700C81181 /* glasses-50.png */,
 			);
