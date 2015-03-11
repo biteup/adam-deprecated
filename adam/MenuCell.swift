@@ -27,6 +27,7 @@ class MenuCell: UITableViewCell {
     var distant: String = ""
     var address: String = ""
     var isImageSet:Bool = false
+    var imgCache:ImageCache = ImageCache.sharedInstance
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -145,31 +146,34 @@ class MenuCell: UITableViewCell {
         self.menuImageURL = imgURL
     }
     
-    func setImageByURL(imgURL: NSURL, menuObj:Menu) {
+    func setImageByURL(imgURL: NSURL) {
         self.menuImageURL = imgURL
-        
-        Alamofire.request(.GET, imgURL).progress{ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.imgProgressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-            }
-            if totalBytesRead == totalBytesExpectedToRead {
-                self.imgProgressView.hidden = true
-                self.menuImageView.hidden = false
-            } else {
-            }
-            }
-            .response() {
-                (_, _, data, _) in
-                if let image = UIImage(data: data! as NSData) {
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.imgNotFoundLabel.alpha = 0.0
-                        self.menuImageView.image = image
-                        menuObj.setMenuImage(image)
-                    }
-                } else {
-                    self.imgNotFoundLabel.alpha = 1.0
+        if let image = self.imgCache.loadImage(imgURL) {
+            self.menuImageView.image = image
+        } else {
+            Alamofire.request(.GET, imgURL).progress{ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.imgProgressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
                 }
-            }
+                if totalBytesRead == totalBytesExpectedToRead {
+                    self.imgProgressView.hidden = true
+                    self.menuImageView.hidden = false
+                } else {
+                }
+                }
+                .response() {
+                    (request, response, data, error) in
+                    if let image = UIImage(data: data! as NSData) {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.imgNotFoundLabel.alpha = 0.0
+                            self.menuImageView.image = image
+                            self.imgCache.cacheImage(request.URL, image: image)
+                        }
+                    } else {
+                        self.imgNotFoundLabel.alpha = 1.0
+                    }
+                }
+        }
     }
     
     func getImageURL() -> NSURL {

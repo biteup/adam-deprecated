@@ -198,6 +198,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="distantLabel" destination="GmF-an-t3g" id="hLY-fR-EF8"/>
+                        <outlet property="imageProgressView" destination="V2y-Yo-zb8" id="cch-WV-LnO"/>
                         <outlet property="menuImageView" destination="hjT-dS-MkP" id="mDc-b7-0mh"/>
                         <outlet property="menuNameLabel" destination="Gfm-Ht-UOL" id="Oop-tj-Iy1"/>
                         <outlet property="priceLabel" destination="3zV-77-dXQ" id="HLb-86-Hss"/>
