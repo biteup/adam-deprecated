@@ -18,12 +18,14 @@ class MenuDetailViewController : UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var distantLabel: UILabel!
     @IBOutlet weak var menuImageView: UIImageView!
+    @IBOutlet weak var imageProgressView: UIProgressView!
     
     
     var detailParam: [String : String] = ["menuName" : "", "storeName" : "","storeLocaiton" : "","price" : "","distant" : ""]
     var imgURL:NSURL = NSURL(string: "http://upload.wikimedia.org/wikipedia/commons/a/ad/Kyaraben_panda.jpg")!
     var isMenuSet = false
     var menuImage = UIImage(named: "default_bento.jpg")
+    var imgCache:ImageCache = ImageCache.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,23 +60,25 @@ class MenuDetailViewController : UIViewController {
     }
     
     func setImageByURL(imgURL: NSURL) {
-        print(imgURL)
-        Alamofire.request(.GET, imgURL).progress{ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-           // self.imgProgressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
+        if let image = imgCache.loadImage(imgURL) {
+            self.menuImageView.image = image
+        } else {
+            Alamofire.request(.GET, imgURL).progress{ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                self.imageProgressView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
                 if totalBytesRead == totalBytesExpectedToRead {
-                    //   self.imgProgressView.hidden = true
+                    self.imageProgressView.hidden = true
                 }
+                }
+                .response() {
+                    (request, response, data, error) in
+                    
+                    if let image = UIImage(data: data! as NSData) {
+                        self.menuImageView.image = image
+                        self.imgCache.cacheImage(request.URL, image: image)
+                    } else {
+                        
+                    }
             }
-            .response() {
-                (_, _, data, _) in
-                
-                if let image = UIImage(data: data! as NSData) {
-                    //self.menuImageURL = imgURL
-                    self.menuImageView.image = image
-                    //self.imgNotFoundLabel.alpha = 0.0
-                } else {
-                    //self.imgNotFoundLabel.alpha = 1.0
-                }
         }
     }
     
@@ -85,7 +89,6 @@ class MenuDetailViewController : UIViewController {
         self.resizePriceLabelFrame(self.detailParam["price"]!)
         self.distantLabel.text          = self.detailParam["distant"]
         self.storeLocationLabel.sizeToFit()
-        println(self.menuImageView.frame.size)
         self.setImageByURL(self.imgURL)
     }
 
